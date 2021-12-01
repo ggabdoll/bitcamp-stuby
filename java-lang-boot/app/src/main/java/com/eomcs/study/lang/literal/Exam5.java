@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/literal/exam5")
 public class Exam5 {
 
-  static float x = 12.375f;
-  static double y = 12.375;
-
   @GetMapping("/test1")
   public String test1() {
     return "문자1: " + '가' + 'A';
