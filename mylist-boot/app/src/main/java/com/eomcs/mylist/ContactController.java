@@ -49,7 +49,7 @@ public class ContactController {
     for(int i =0; i< size; i++) {
       if(contacts[i].split(",")[1].equals(email)) {
         //현재 위치의 다음 항목에서 배열 끝까지 반복하며 앞으로 값을 당겨온다. 
-        for(int j=i+1; j < size-1; j++) {
+        for(int j=i+1; j < size; j++) {
           contacts[j-1] = contacts[j];
         }
         size--;

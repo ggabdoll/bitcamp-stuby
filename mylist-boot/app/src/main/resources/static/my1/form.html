@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ADD</title>
+    </head>
+    <body>
+        <style>
+            body {
+                padding: 20px;
+            }
+            input {
+                margin-bottom: 8px;
+                border-left-width: 0;
+                border-right-width: 0;
+                border-top-width: 0;
+                border-bottom-width: 1;
+            }
+            button {
+                width: 80px;
+                height: 30px;
+                border-radius: 5px;
+            }
+        </style>
+        <h1>New Chicken House</h1>
+        <form>
+            <input id="x-name" type="text" placeholder="*Name" /><br />
+            <input id="x-menu" type="text" placeholder="Main Menu" /><br />
+            <input id="x-tel" type="tel" placeholder="*Tel" /><br />
+            <input id="x-rating" type="number" placeholder="Rating/5" /><br />
+            <div>'*'는 필수 사항 입니다.</div>
+            <button
+                id="x-add-btn"
+                type="button"
+                style="margin: 20px; background-color: #daddfc; border: 0"
+            >
+                ADD
+            </button>
+            <button id="x-cancle-btn" type="button" style="margin: 20px; border: 0">CANCLE</button>
+        </form>
+
+        <script>
+            var xName = document.querySelector('#x-name');
+            var xMenu = document.querySelector('#x-menu');
+            var xTel = document.querySelector('#x-tel');
+            var xRating = document.querySelector('#x-rating');
+            //console.log(xName, xMenu, xTel, xRating);
+
+            document.querySelector('#x-add-btn').onclick = function () {
+                if (xName.value == '' || xTel.value == '') {
+                    alert("제발 '*'는 작성해 주세요 제발제발");
+                    return;
+                }
+                fetch(
+                    `/chichouse/add?name=${xName.value}&menu=${xMenu.value}&tel=${xTel.value}&rating=${xRating.value}`
+                )
+                    .then(function (res) {
+                        return res.text();
+                    })
+                    .then(function (text) {
+                        location.href = 'index.html';
+                    });
+            };
+            document.querySelector('#x-cancle-btn').onclick = function () {
+                location.href = 'index.html';
+            };
+        </script>
+    </body>
+</html>

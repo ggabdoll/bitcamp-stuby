@@ -4,7 +4,66 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>찾아보쟈 치킨집</title>
     </head>
-    <body></body>
+    <body>
+        <style>
+            body {
+                padding: 20px;
+            }
+            table {
+                margin-top: 20px;
+            }
+            th {
+                width: 100px;
+                text-align: center;
+            }
+            td {
+                width: 100px;
+                text-align: center;
+            }
+            h1 {
+                color: #fabb51;
+            }
+            a {
+                text-decoration: none;
+                margin-left: 20px;
+                color: black;
+            }
+        </style>
+        <h1>🥠취퀸~!~! 취퀸~!~!</h1>
+        <a href="form.html">➕취퀸HOUSE</a>
+        <table id="x-chickh-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Main Menu</th>
+                    <th>Tel</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <script>
+            var tbody = document.querySelector('#x-chickh-table tbody');
+
+            fetch('/chichouse/list')
+                .then(function (res) {
+                    return res.json();
+                })
+                .then(function (houses) {
+                    for (var house of houses) {
+                        var item = house.split(',');
+                        var tr = document.createElement('tr');
+                        tr.innerHTML = `<td><a href="view.html?tel=${item[2]}">${item[0]}</a></td>
+                        <td>${item[1]}</td>
+                        <td>${item[2]}</td>
+                        <td>${item[3]}</td>`;
+
+                        tbody.appendChild(tr);
+                    }
+                });
+        </script>
+    </body>
 </html>

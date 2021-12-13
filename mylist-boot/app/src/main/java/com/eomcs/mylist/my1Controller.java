@@ -7,50 +7,50 @@ import org.springframework.web.bind.annotation.RestController;
 //이 클래스가 클라이언트 요청 처리 담당자임을 표시한다.
 //이 표시(어노테이션)가 붙어 있어야만 스프링부트가 이 클래스를 인식한다.
 public class my1Controller {
-  String[] contacts = new String[5];
-  int size = 0; 
+  String[] chickenH = new String[5];
+  int size =0;
 
-  @RequestMapping("/contact/list")
+  @RequestMapping("/chichouse/list")
   public Object list() {
-    String[] arr = new String[size]; //배열에 저장된 값만 복사할 새 배열을 만든다. 
-    for (int i =0; i < size; i++) {
-      arr[i] = contacts[i]; //전체 배열에서 값이 들어 있는 항목만 복사한다. 
+    String[] arr = new String[size];
+    for(int i =0; i < size; i++) {
+      arr[i] = chickenH[i];
     }
-    return arr; //복사한 항목들을 담고 있는 새 배열을 리턴한다. 
+    return arr;
   }
-  @RequestMapping("/contact/add")
-  public Object add(String name, String email, String tel, String company) {
-    String contact = name + "," + email + "," + tel + "," + company;
-    contacts[size++] = contact;
+  @RequestMapping("/chichouse/add")
+  public Object add(String name, String menu, String tel, String rating) {
+    String chickh = name + "," + menu + "," + tel + "," + rating;
+    chickenH[size++] = chickh;
     return size;
   }
-  @RequestMapping("/contact/get")
-  public Object get(String email) {
-    for(int i =0; i< size; i++) {
-      if(contacts[i].split(",")[1].equals(email)) {
-        return contacts[i];
+  @RequestMapping("/chichouse/get")
+  public Object get(String tel) {
+    for(int i =0; i<size; i++) {
+      if(chickenH[i].split(",")[2].equals(tel)) {
+        return chickenH[i];
       }
     }
     return "";
   }
-  @RequestMapping("/contact/update")
-  public Object update(String name, String email, String tel, String company) {
-    String contact = name + "," + email + "," + tel + "," + company;
+  @RequestMapping("/chichouse/update")
+  public Object update(String name, String menu, String tel, String rating) {
+    String chickh = name + "," + menu + "," + tel + "," + rating;
     for(int i =0; i< size; i++) {
-      if(contacts[i].split(",")[1].equals(email)) {
-        contacts[i] = contact;
+      if(chickenH[i].split(",")[2].equals(tel)) {
+        chickenH[i] = chickh;
         return 1;
       }
     }
     return 0;
   }
-  @RequestMapping("/contact/delete")
-  public Object delete(String email) {
+  @RequestMapping("/chichouse/delete")
+  public Object delete(String tel) {
     for(int i =0; i< size; i++) {
-      if(contacts[i].split(",")[1].equals(email)) {
+      if(chickenH[i].split(",")[2].equals(tel)) {
         //현재 위치의 다음 항목에서 배열 끝까지 반복하며 앞으로 값을 당겨온다. 
-        for(int j=i+1; j < size-1; j++) {
-          contacts[j-1] = contacts[j];
+        for(int j=i+1; j < size; j++) {
+          chickenH[j-1] = chickenH[j];
         }
         size--;
         return 1;
