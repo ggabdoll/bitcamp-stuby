@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController 
 //이 클래스가 클라이언트 요청 처리 담당자임을 표시한다.
 //이 표시(어노테이션)가 붙어 있어야만 스프링부트가 이 클래스를 인식한다.
-public class ContactController {
+public class my1Controller {
   String[] contacts = new String[5];
   int size = 0; 
 
