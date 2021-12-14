@@ -15,31 +15,40 @@
                 margin-top: 20px;
             }
             th {
-                width: 100px;
+                width: 150px;
                 text-align: center;
+                height: 30px;
             }
             td {
-                width: 100px;
+                width: 150px;
                 text-align: center;
+                height: 30px;
             }
             h1 {
-                color: #fabb51;
+                color: #f0bb62;
+                margin-left: 40px;
             }
-            a {
+            .pluse-btn {
                 text-decoration: none;
-                margin-left: 20px;
+                margin-left: 50px;
+                color: black;
+                font-weight: bold;
+            }
+            .x-aName {
+                text-align: center;
+                text-decoration: none;
                 color: black;
             }
         </style>
-        <h1>🥠취퀸~!~! 취퀸~!~!</h1>
-        <a href="form.html">➕취퀸HOUSE</a>
+        <h1>취퀸~🥠~🥠 취퀸~🥠~🥠</h1>
+        <a href="form.html" class="pluse-btn">➕취퀸HOUSE</a>
         <table id="x-chickh-table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Main Menu</th>
                     <th>Tel</th>
-                    <th>Rating</th>
+                    <th>Rating/5</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -56,7 +65,7 @@
                     for (var house of houses) {
                         var item = house.split(',');
                         var tr = document.createElement('tr');
-                        tr.innerHTML = `<td><a href="view.html?tel=${item[2]}">${item[0]}</a></td>
+                        tr.innerHTML = `<td><a class='x-aName' href="view.html?tel=${item[2]}">${item[0]}</a></td>
                         <td>${item[1]}</td>
                         <td>${item[2]}</td>
                         <td>${item[3]}</td>`;
