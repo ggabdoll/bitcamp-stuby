@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
 @EnableAutoConfiguration
+
 public class StudyApplication {
 
   public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class StudyApplication {
   }
   @RequestMapping("/hello")
   String hello() {
-    return "Hello World!";
+    return "Hello java-lang-boot";
   }
 
 }
