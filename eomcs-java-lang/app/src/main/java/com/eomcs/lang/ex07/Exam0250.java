@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex07;
+Exam0250.javapackage com.eomcs.lang.ex07;
 
 // # 메서드 : 가변 파라미터
 //
