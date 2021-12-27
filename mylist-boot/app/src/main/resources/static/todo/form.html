@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo</title>
+    </head>
+    <body>
+        <h1>To-do</h1>
+        <form>
+            할일 : <input id="x-title" type="text" /><br />
+            <button id="x-add-btn" type="button" style="margin: 25px">등록</button>
+            <button id="x-cancle-btn" type="button" style="margin: 25px">취소</button>
+        </form>
+
+        <script>
+            var xTitle = document.querySelector('#x-title');
+
+            document.querySelector('#x-add-btn').onclick = function () {
+                if (xTitle.value == '') {
+                    alert('필수 입력 항목이 비어 있습니다.');
+                    return;
+                }
+                fetch(`/todo/add?title=${xTitle.value}`)
+                    .then(function (response) {
+                        return response.text();
+                    })
+                    .then(function (text) {
+                        console.log(text);
+                        location.href = 'index.html';
+                    });
+            };
+
+            document.querySelector('#x-cancle-btn').onclick = function () {
+                location.href = 'index.html';
+            };
+        </script>
+    </body>
+</html>

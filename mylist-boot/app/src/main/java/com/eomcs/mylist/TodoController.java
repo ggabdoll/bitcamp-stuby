@@ -22,27 +22,37 @@ public class TodoController {
 
   @RequestMapping("/todo/get")
   public Object get(int index) {
-    if(index < 0 || index >= ArrayList.size) {
+    if(index < 0 || index >= ArrayList2.size) {
       return "";
     }
     return ArrayList2.list[index];
   }
+
   @RequestMapping("/todo/update")
   public Object update(int index, Todo todo) {
-    if(index < 0 || index >= ArrayList.size) {
+    if(index < 0 || index >= ArrayList2.size) {
       return 0;
     }
     return ArrayList2.set(index, todo) == null ? 0 : 1;
   }
+
   @RequestMapping("/todo/delete")
   public Object delete(int index) {
-    if(index < 0 || index >= ArrayList.size) {
+    if(index < 0 || index >= ArrayList2.size) {
       return 0;
     }
     ArrayList2.remove(index);
     return 1;
   }
-  //이메일 값으로 배열의 value를 찾는다. 
+
+  @RequestMapping("/todo/check")
+  public Object check(int index, boolean done) {
+    if(index < 0 || index >= ArrayList2.size) {
+      return 0;
+    }
+    ArrayList2.list[index].done = done;
+    return 1;
+  }
 
 
 }
