@@ -67,7 +67,7 @@ public class ArrayList {
   // 배열의 특정 위치의 값을 변경한다. 
   // 리턴 값은 변경하기 전에 저장되어 있던 값이다. 
   static Contact set(int index, Contact contact) {
-    if (index < 0 && index >= size) { //값이 저장된 위치가 무표한 인덱스라면 
+    if (index < 0 || index >= size) { //값이 저장된 위치가 무표한 인덱스라면 
       return null;
     }
     Contact old = contacts[index];
