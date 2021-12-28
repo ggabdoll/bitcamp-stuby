@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>엄블리와 601호</title>
+    </head>
+    <body>
+        <style>
+            body {
+                padding: 20px;
+            }
+            table {
+                margin-top: 20px;
+            }
+            th {
+                width: 150px;
+                text-align: center;
+                height: 30px;
+            }
+            td {
+                width: 150px;
+                text-align: center;
+                height: 30px;
+            }
+            h1 {
+                color: #f0bb62;
+                margin-left: 40px;
+            }
+            .pluse-btn {
+                text-decoration: none;
+                margin-left: 50px;
+                color: black;
+                font-weight: bold;
+            }
+            .x-aName {
+                text-align: center;
+                text-decoration: none;
+                color: black;
+            }
+        </style>
+        <h1>엄블리와 601호</h1>
+        <a href="form.html" class="pluse-btn">➕BOARD</a>
+        <table id="x-board-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>TITLE</th>
+                    <th>VIEWS</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <script>
+            var tbody = document.querySelector('#x-board-table tbody');
+
+            fetch('/noticeBoard/list')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (boardList) {
+                    console.log(boardList);
+                    for (var i = 0; i < boardList.length; i++) {
+                        var tr = document.createElement('tr');
+                        tr.setAttribute('data-no', i);
+                        var checkedOption = '';
+                        var titleTdOption = '';
+
+                        tr.innerHTML = `<td><span>${i}</span></td>
+                        <td class='board-title'><span ${titleTdOption}>${boardList[i].title}</span></td>
+                        <td>${boardList[i].viewCount}</td>
+                        <td>${boardList[i].creatDate}</td>`;
+                        tbody.appendChild(tr);
+                    }
+                    document.querySelector('#x-todo-input').focus();
+                });
+        </script>
+    </body>
+</html>
