@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VIEW</title>
+    </head>
+    <body>
+        <style>
+            body {
+                padding: 20px;
+            }
+            input {
+                margin-bottom: 8px;
+                border-left-width: 0;
+                border-right-width: 0;
+                border-top-width: 0;
+                border-bottom-width: 0.01;
+            }
+            button {
+                width: 80px;
+                height: 30px;
+                border-radius: 5px;
+                border: 0;
+            }
+        </style>
+        <h1>View</h1>
+        <div>
+            <input id="x-title" type="text" placeholder="Title" /><br />
+            <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea><br />
+        </div>
+        <button id="x-update-btn" type="button" style="margin: 20px; background-color: #daddfc">
+            UPDATE
+        </button>
+        <button id="x-delete-btn" type="button" style="margin: 20px; background-color: #ff5151">
+            DELET
+        </button>
+        <button id="x-cancle-btn" type="button" style="margin: 20px">CANCLE</button>
+
+        <script>
+            var arr = location.href.split('?');
+
+            if (arr.length == 1) {
+                alert('요청이 옳바르지 않습니다.');
+                throw 'URL 형식 오류!';
+            }
+
+            var params = new URLSearchParams(arr[1]);
+            var tel = params.get('tel');
+
+            if (tel == null) {
+                alert('전화번호 없는디?');
+                throw 'Pram Error!!';
+            }
+
+            var xName = document.querySelector('#x-name');
+            var xMenu = document.querySelector('#x-menu');
+            var xTel = document.querySelector('#x-tel');
+            var xRating = document.querySelector('#x-rating');
+
+            fetch(`/chichouse/get?tel=${tel}`)
+                .then(function (res) {
+                    return res.text();
+                })
+                .then(function (data) {
+                    var values = data.split(',');
+                    xName.value = values[0];
+                    xMenu.value = values[1];
+                    xTel.value = values[2];
+                    xRating.value = values[3];
+                });
+
+            document.querySelector('#x-update-btn').onclick = function () {
+                if (xName.value == '') {
+                    alert("제발 '*'는 작성해 주세요 제발제발");
+                    return;
+                }
+                fetch(
+                    `/chichouse/update?name=${xName.value}&menu=${xMenu.value}&tel=${xTel.value}&rating=${xRating.value}`
+                )
+                    .then(function (res) {
+                        return res.text();
+                    })
+                    .then(function (text) {
+                        location.href = 'index.html';
+                    });
+            };
+            document.querySelector('#x-cancle-btn').onclick = function () {
+                location.href = 'index.html';
+            };
+            document.querySelector('#x-delete-btn').onclick = function () {
+                fetch(`/chichouse/delete?tel=${tel}`)
+                    .then(function (res) {
+                        return res.json();
+                    })
+                    .then(function (result) {
+                        console.log(result);
+                        location.href = 'index.html';
+                    });
+            };
+        </script>
+    </body>
+</html>

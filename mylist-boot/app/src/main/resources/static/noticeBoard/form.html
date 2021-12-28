@@ -28,9 +28,8 @@
         <form>
             <div>
                 <input id="x-title" type="text" placeholder="Title" /><br />
-                <input id="x-content" type="text" placeholder="*Tel" /><br />
+                <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea><br />
             </div>
-            <div>'*'는 필수 사항 입니다.</div>
             <button
                 id="x-add-btn"
                 type="button"
@@ -42,22 +41,34 @@
         </form>
 
         <script>
-            var xName = document.querySelector('#x-name');
-            var xMenu = document.querySelector('#x-menu');
-            var xTel = document.querySelector('#x-tel');
-            var xRating = document.querySelector('#x-rating');
-            //console.log(xName, xMenu, xTel, xRating);
+            //날짜 시간
+            let today = new Date();
+            let month = today.getMonth() + 1;
+            let day = today.getDay();
+            let hours = today.getHours();
+            let minutes = today.getMinutes();
+
+            let dayTime = month + '/' + day + '/' + hours + ':' + minutes;
+
+            var xTitle = document.querySelector('#x-title');
+            var xContent = document.querySelector('#x-content');
+
+            xTitle.onkeyup = function () {
+                if (keyCode == 13) {
+                    xContent.focus();
+                }
+            };
 
             document.querySelector('#x-add-btn').onclick = function () {
-                if (xName.value == '' || xTel.value == '') {
-                    alert("제발 '*'는 작성해 주세요 제발제발");
+                if (xName.value == '') {
+                    alert(`제발 제목을 누르던가 Cancle버튼을 누르던가\n하나만 하세요`);
                     return;
                 }
                 fetch(
-                    `/chichouse/add?name=${xName.value}&menu=${xMenu.value}&tel=${xTel.value}&rating=${xRating.value}`
+                    `/chichouse/add?title=${xTitle.value}&content=${xContent.value}&date=${dayTime}`
                 )
                     .then(function (res) {
-                        return res.text();
+                        return res.json();
                     })
                     .then(function (text) {
                         location.href = 'index.html';
