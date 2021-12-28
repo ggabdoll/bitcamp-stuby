@@ -42,7 +42,6 @@ public class ArrayList2 {
     }
     return arr;
   }
-
   // 배열에 항목을 추가한다. 
   // 배열이 꽉찼으면 배열의 크기를 늘린다.
   static void add(Todo contact) {
@@ -55,7 +54,7 @@ public class ArrayList2 {
   // 배열의 특정 위치의 값을 변경한다. 
   // 리턴 값은 변경하기 전에 저장되어 있던 값이다. 
   static Todo set(int index, Todo contact) {
-    if (index < 0 || index >= size) { //값이 저장된 위치가 무표한 인덱스라면 
+    if (index < 0 || index >= size) { //값이 저장된 위치가 무효한 인덱스라면 
       return null;
     }
     Todo old = list[index];
