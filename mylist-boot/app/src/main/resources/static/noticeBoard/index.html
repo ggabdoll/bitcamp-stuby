@@ -14,6 +14,7 @@
             table {
                 margin-top: 20px;
                 margin-left: 20px;
+                border-collapse: collapse;
             }
             .idx {
                 width: 20px;
@@ -46,11 +47,13 @@
                 text-decoration: none;
                 color: black;
             }
+            tbody {
+                position: relative;
+            }
             .tBodyTr :hover {
                 height: 50px;
-            }
-            tr > td {
-                border-bottom: 1px solid #444444;
+                border: 1px solid #444444;
+                border-radius: 5px;
             }
         </style>
         <h1>엄블리와 601호</h1>
@@ -86,7 +89,7 @@
                             boardList[i].title
                         }</a></td>
                         <td class='view'>${boardList[i].viewCount}</td>
-                        <td>${boardList[i].creatDate}</td>`;
+                        <td>${boardList[i].createDate}</td>`;
                         tbody.appendChild(tr);
                     }
                 });

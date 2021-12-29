@@ -13,6 +13,7 @@ public class BoardContainer {
 
   @RequestMapping("/board/add")
   public Object add(Board board) {
+    //board.setCreateDate(new Date(System.currentTimeMillis()));
     ArrayList3.add(board);
     return ArrayList3.size;
   }
@@ -31,7 +32,10 @@ public class BoardContainer {
     if (index < 0 || index >= ArrayList3.size) {
       return 0;
     }
-    System.out.println(index);
+    Board old = (Board) ArrayList3.list[index];
+    board.viewCount = old.viewCount;
+    board.createDate = old.createDate;
+
     return ArrayList3.set(index, board) == null ? 0 : 1;
   }
 
