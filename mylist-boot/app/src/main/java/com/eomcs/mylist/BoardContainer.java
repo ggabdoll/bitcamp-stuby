@@ -6,16 +6,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BoardContainer {
 
+  ArrayList boardList = new ArrayList();
+
   @RequestMapping("/board/list")
   public Object list() {
-    return ArrayList3.toArray(); 
+    return ArrayList.toArray(boardList); 
   }
 
   @RequestMapping("/board/add")
   public Object add(Board board) {
     //board.setCreateDate(new Date(System.currentTimeMillis()));
-    ArrayList3.add(board);
-    return ArrayList3.size;
+    ArrayList.add(boardList,board);
+    return boardList.size;
   }
 
   @RequestMapping("/board/get")
@@ -23,16 +25,16 @@ public class BoardContainer {
     if (index == -1) {
       return"";
     }
-    ((Board)ArrayList3.list[index]).viewCount++;
-    return ArrayList3.list[index];
+    ((Board)boardList.list[index]).viewCount++;
+    return boardList.list[index];
   };
 
   @RequestMapping("/board/update")
   public Object update(int index, Board board) {
-    if (index < 0 || index >= ArrayList3.size) {
+    if (index < 0 || index >= boardList.size) {
       return 0;
     }
-    Board old = (Board) ArrayList3.list[index];
+    Board old = (Board) boardList.list[index];
     board.viewCount = old.viewCount;
     board.createDate = old.createDate;
 
@@ -41,10 +43,10 @@ public class BoardContainer {
 
   @RequestMapping("/board/delete")
   public Object delete(int index) {
-    if (index < 0 || index >= ArrayList3.size) {
+    if (index < 0 || index >= boardList.size) {
       return 0;
     }
-    ArrayList3.remove(index);
+    ArrayList.remove(boardList,index);
     return 1;
   }
 }
