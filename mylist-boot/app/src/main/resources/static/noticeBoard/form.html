@@ -10,34 +10,64 @@
         <style>
             body {
                 padding: 20px;
+                align-items: center;
+                justify-content: center;
+            }
+            h1 {
+                align-self: center;
             }
             input {
-                margin-bottom: 8px;
+                margin-left: 3vw;
+                margin-bottom: 10px;
                 border-left-width: 0;
                 border-right-width: 0;
                 border-top-width: 0;
                 border-bottom: 0.3 solid black;
+                font-size: 20px;
+                text-align: center;
+                outline-style: none;
             }
             button {
                 width: 80px;
                 height: 30px;
                 border-radius: 5px;
+                margin-left: 80px;
+            }
+            .boarderBox {
+                display: flex;
+                width: 30vw;
+                height: 40vh;
+                border: 1px solid black;
+                border-radius: 10px;
+                justify-content: center;
+                padding: 10px;
+            }
+            textarea {
+                border: 0;
+                outline-style: none;
             }
         </style>
         <h1>New Board</h1>
         <form>
-            <div>
-                <input id="x-title" type="text" placeholder="Title" /><br />
-                <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea><br />
+            <div class="boarderBox">
+                <div>
+                    <input id="x-title" type="text" placeholder="Title" /><br />
+                    <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea
+                    ><br />
+                </div>
             </div>
-            <button
-                id="x-add-btn"
-                type="button"
-                style="margin: 20px; background-color: #daddfc; border: 0"
-            >
-                ADD
-            </button>
-            <button id="x-cancle-btn" type="button" style="margin: 20px; border: 0">CANCLE</button>
+            <div class="btnContainer">
+                <button
+                    id="x-add-btn"
+                    type="button"
+                    style="margin: 20px; background-color: #daddfc; border: 0; margin-left: 80px"
+                >
+                    ADD
+                </button>
+                <button id="x-cancle-btn" type="button" style="margin: 20px; border: 0">
+                    CANCLE
+                </button>
+            </div>
         </form>
 
         <script>
@@ -48,30 +78,32 @@
             let hours = today.getHours();
             let minutes = today.getMinutes();
 
-            let dayTime = month + '/' + day + '/' + hours + ':' + minutes;
+            let dayTime = month + day;
+            let formatDate = Date.parse(month);
 
-            var xTitle = document.querySelector('#x-title');
-            var xContent = document.querySelector('#x-content');
+            var xTitle = document.querySelector('input');
+            var xContent = document.querySelector('textarea');
 
-            xTitle.onkeyup = function () {
-                if (keyCode == 13) {
-                    xContent.focus();
-                }
-            };
+            // xTitle.onkeyup = function (e) {
+            //     if (e.keyCode == 13) {
+            //         document.querySelector('textarea').focus();
+            //     }
+            // };
 
             document.querySelector('#x-add-btn').onclick = function () {
-                if (xName.value == '') {
-                    alert(`제발 제목을 누르던가 Cancle버튼을 누르던가\n하나만 하세요`);
+                console.log(typeof formatDate);
+                if (xTitle.value == '') {
+                    alert(
+                        `🙏'제목'을 작성하던가'Cancle'버튼을 누르던가🙏\n            🙏하나만 하세요🙏`
+                    );
                     return;
                 }
-                fetch(
-                    `/chichouse/add?title=${xTitle.value}&content=${xContent.value}&date=${dayTime}`
-                )
+                fetch(`/board/add?title=${xTitle.value}&content=${xContent.value}`)
                     .then(function (res) {
                         return res.json();
                     })
                     .then(function (text) {
-                        location.href = 'index.html';
+                        //location.href = 'index.html';
                     });
             };
             document.querySelector('#x-cancle-btn').onclick = function () {

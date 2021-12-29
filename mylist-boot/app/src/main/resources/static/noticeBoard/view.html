@@ -10,31 +10,55 @@
         <style>
             body {
                 padding: 20px;
+                align-items: center;
+                justify-content: center;
+            }
+            h1 {
+                align-self: center;
             }
             input {
-                margin-bottom: 8px;
+                margin-left: 3vw;
+                margin-bottom: 10px;
                 border-left-width: 0;
                 border-right-width: 0;
                 border-top-width: 0;
-                border-bottom-width: 0.01;
+                border-bottom: 0.3 solid black;
+                font-size: 20px;
+                text-align: center;
+                outline-style: none;
             }
             button {
                 width: 80px;
                 height: 30px;
                 border-radius: 5px;
+                margin-left: 80px;
+            }
+            .boarderBox {
+                display: flex;
+                width: 30vw;
+                height: 40vh;
+                border: 1px solid black;
+                border-radius: 10px;
+                justify-content: center;
+                padding: 10px;
+            }
+            textarea {
                 border: 0;
+                outline-style: none;
             }
         </style>
         <h1>View</h1>
-        <div>
-            <input id="x-title" type="text" placeholder="Title" /><br />
-            <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea><br />
+        <div class="boarderBox">
+            <div>
+                <input id="x-title" type="text" placeholder="Title" /><br />
+                <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea><br />
+            </div>
         </div>
         <button id="x-update-btn" type="button" style="margin: 20px; background-color: #daddfc">
             UPDATE
         </button>
         <button id="x-delete-btn" type="button" style="margin: 20px; background-color: #ff5151">
-            DELET
+            DELETE
         </button>
         <button id="x-cancle-btn" type="button" style="margin: 20px">CANCLE</button>
 
@@ -47,42 +71,41 @@
             }
 
             var params = new URLSearchParams(arr[1]);
-            var tel = params.get('tel');
+            var index = params.get('index');
 
-            if (tel == null) {
-                alert('전화번호 없는디?');
+            if (index == null) {
+                alert('인덱스 없는데?');
                 throw 'Pram Error!!';
             }
 
-            var xName = document.querySelector('#x-name');
-            var xMenu = document.querySelector('#x-menu');
-            var xTel = document.querySelector('#x-tel');
-            var xRating = document.querySelector('#x-rating');
+            var xTitle = document.querySelector('#x-title');
+            var xContent = document.querySelector('textarea');
 
-            fetch(`/chichouse/get?tel=${tel}`)
+            fetch(`/board/get?index=${index}`)
                 .then(function (res) {
-                    return res.text();
+                    return res.json();
                 })
                 .then(function (data) {
-                    var values = data.split(',');
-                    xName.value = values[0];
-                    xMenu.value = values[1];
-                    xTel.value = values[2];
-                    xRating.value = values[3];
+                    xTitle.value = data.title;
+                    xContent.value = data.content;
                 });
 
             document.querySelector('#x-update-btn').onclick = function () {
-                if (xName.value == '') {
-                    alert("제발 '*'는 작성해 주세요 제발제발");
+                console.log(typeof parseInt(index));
+                if (xTitle.value == '') {
+                    alert(
+                        `🙏'제목'을 작성하던가'Cancle'버튼을 누르던가🙏\n            🙏하나만 하세요🙏`
+                    );
                     return;
                 }
                 fetch(
-                    `/chichouse/update?name=${xName.value}&menu=${xMenu.value}&tel=${xTel.value}&rating=${xRating.value}`
+                    `/board/update?index=${index}&title=${xTitle.value}&content=${xContent.value}`
                 )
                     .then(function (res) {
                         return res.text();
                     })
                     .then(function (text) {
+                        console.log(text);
                         location.href = 'index.html';
                     });
             };
@@ -90,7 +113,7 @@
                 location.href = 'index.html';
             };
             document.querySelector('#x-delete-btn').onclick = function () {
-                fetch(`/chichouse/delete?tel=${tel}`)
+                fetch(`/board/delete?index=${index}`)
                     .then(function (res) {
                         return res.json();
                     })

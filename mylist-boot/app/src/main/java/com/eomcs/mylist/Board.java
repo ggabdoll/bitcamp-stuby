@@ -1,11 +1,18 @@
 package com.eomcs.mylist;
 
 public class Board {
+  int index;
   String title;
   String content;
   int viewCount;
   java.sql.Date createDate;
 
+  public int getIndex() {
+    return index;
+  }
+  public void setIndex(int index) {
+    this.index = index;
+  }
   public String getTitle() {
     return title;
   }
@@ -32,8 +39,8 @@ public class Board {
   }
   @Override
   public String toString() {
-    return "Board [title=" + title + ", content=" + content + ", viewCount=" + viewCount
-        + ", createDate=" + createDate + "]";
+    return "Board [index=" + index + ", title=" + title + ", content=" + content + ", viewCount="
+        + viewCount + ", createDate=" + createDate + "]";
   }
 
 }

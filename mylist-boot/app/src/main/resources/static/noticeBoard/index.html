@@ -13,6 +13,10 @@
             }
             table {
                 margin-top: 20px;
+                margin-left: 20px;
+            }
+            .idx {
+                width: 20px;
             }
             th {
                 width: 150px;
@@ -24,8 +28,11 @@
                 text-align: center;
                 height: 30px;
             }
+            .view {
+                width: 40px;
+            }
             h1 {
-                color: #f0bb62;
+                color: #516beb;
                 margin-left: 40px;
             }
             .pluse-btn {
@@ -39,16 +46,22 @@
                 text-decoration: none;
                 color: black;
             }
+            .tBodyTr :hover {
+                height: 50px;
+            }
+            tr > td {
+                border-bottom: 1px solid #444444;
+            }
         </style>
         <h1>엄블리와 601호</h1>
         <a href="form.html" class="pluse-btn">➕BOARD</a>
         <table id="x-board-table">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>TITLE</th>
-                    <th>VIEWS</th>
-                    <th>Date</th>
+                    <th class="idx"></th>
+                    <th class="title">TITLE</th>
+                    <th class="view">VIEWS</th>
+                    <th class="date">Date</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -56,8 +69,9 @@
 
         <script>
             var tbody = document.querySelector('#x-board-table tbody');
+            //var tr;
 
-            fetch('/noticeBoard/list')
+            fetch('/board/list')
                 .then(function (response) {
                     return response.json();
                 })
@@ -66,20 +80,24 @@
                     for (var i = 0; i < boardList.length; i++) {
                         var tr = document.createElement('tr');
                         tr.setAttribute('data-no', i);
-                        var checkedOption = '';
-                        var titleTdOption = '';
-
-                        tr.innerHTML = `<td><span>${i}</span></td>
-                        <td class='board-title'><span ${titleTdOption}>${boardList[i].title}</span></td>
-                        <td>${boardList[i].viewCount}</td>
+                        tr.classList.add('tBodyTr');
+                        tr.innerHTML = `<td class='idx'><span>${i + 1}</span></td>
+                        <td class='board-title'><a href='view.html?index=${i}' style="text-decoration : none; color : black">${
+                            boardList[i].title
+                        }</a></td>
+                        <td class='view'>${boardList[i].viewCount}</td>
                         <td>${boardList[i].creatDate}</td>`;
                         tbody.appendChild(tr);
                     }
-                    document.querySelector('#x-todo-input').focus();
                 });
 
             function goView() {
-                location.href = 'view.html';
+                var trTag = document.querySelector(tbody > tr);
+                console.log('tr:::', tr);
+                // var idx = parseInt(trTag.getAttribute('data-no'));
+                //document.querySelector(`tr[data-no="${idx}"`);
+                console.log('i:::', idx);
+                location.href = `view.html?index=${idx}`;
             }
         </script>
     </body>
