@@ -1,7 +1,9 @@
-package com.eomcs.mylist;
+package com.eomcs.mylist.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.eomcs.mylist.domain.Board;
+import com.eomcs.util.ArrayList;
 
 @RestController
 public class BoardContainer {
@@ -17,7 +19,7 @@ public class BoardContainer {
   public Object add(Board board) {
     //board.setCreateDate(new Date(System.currentTimeMillis()));
     boardList.add(board);
-    return boardList.size;
+    return boardList.size();
   }
 
   @RequestMapping("/board/get")
@@ -25,25 +27,26 @@ public class BoardContainer {
     if (index == -1) {
       return"";
     }
-    ((Board)boardList.list[index]).viewCount++;
-    return boardList.list[index];
+    Board board = (Board) boardList.get(index);
+    board.setViewCount(board.getViewCount() +1);
+    return board;
   };
 
   @RequestMapping("/board/update")
   public Object update(int index, Board board) {
-    if (index < 0 || index >= boardList.size) {
+    if (index < 0 || index >= boardList.size()) {
       return 0;
     }
-    Board old = (Board) boardList.list[index];
-    board.viewCount = old.viewCount;
-    board.createDate = old.createDate;
+    Board old = (Board) boardList.get(index);
+    board.setViewCount(old.getViewCount());
+    board.setCreateDate(old.getCreateDate());
 
     return boardList.set(index, board) == null ? 0 : 1;
   }
 
   @RequestMapping("/board/delete")
   public Object delete(int index) {
-    if (index < 0 || index >= boardList.size) {
+    if (index < 0 || index >= boardList.size()) {
       return 0;
     }
     boardList.remove(index);

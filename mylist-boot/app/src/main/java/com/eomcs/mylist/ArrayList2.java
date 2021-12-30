@@ -1,5 +1,7 @@
 package com.eomcs.mylist;
 
+import com.eomcs.mylist.domain.Todo;
+
 public class ArrayList2 {
 
   static Todo[] list = new Todo[5];

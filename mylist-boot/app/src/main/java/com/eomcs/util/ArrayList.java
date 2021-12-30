@@ -1,4 +1,4 @@
-package com.eomcs.mylist;
+package com.eomcs.util;
 
 public class ArrayList {
 
@@ -12,7 +12,7 @@ public class ArrayList {
   // 인스턴스 주소를 앞쪽에서 받으려면 static 키워드를 붙이면 안된다. 
   // 즉 non-static 메서드로 저의해야 한다. 
   // 그리고 메서드가 호출될 때 받은 인스턴스를 사용하려면 내장 변수 this를 이용해야 한다.
-  void add(Object obj) {
+  public void add(Object obj) {
     if(this.size == this.list.length) {
       this.list = this.grow();//메서드 이름에서 해당 코드에 대한 설명을 짐작할 수 있다. 
     }
@@ -43,7 +43,7 @@ public class ArrayList {
   }
 
   // 배열에 저장된 목록만 꺼내 새 배열에 담아 리턴한다. 
-  Object[] toArray() {
+  public Object[] toArray() {
     Object[] arr = new Object[this.size]; //배열에 저장된 값만 복사할 새 배열을 만든다. 
     for (int i =0; i < this.size; i++) {
       arr[i] = this.list[i]; //전체 배열에서 값이 들어 있는 항목만 복사한다. 
@@ -51,7 +51,7 @@ public class ArrayList {
     return arr;
   }
 
-  Object remove(int index) {
+  public Object remove(int index) {
     Object old = this.list[index];
     for(int i= index + 1; i < this.size; i++) {
       this.list[i-1] = this.list[i];
@@ -62,13 +62,21 @@ public class ArrayList {
 
   //배열의 특정 위치의 값을 변경한다. 
   // 리턴 값은 변경하기 전에 저장되어 있던 값이다. 
-  Object set(int index, Object obj) {
+  public Object set(int index, Object obj) {
     if (index < 0 || index >= this.size) { //값이 저장된 위치가 무표한 인덱스라면 
       return null;
     }
     Object old = this.list[index];
     this.list[index] = obj;
     return old;
+  }
+
+  public int size() {
+    return this.size;
+  }
+
+  public Object get(int index) {
+    return this.list[index];
   }
 
 }

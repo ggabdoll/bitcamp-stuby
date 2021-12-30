@@ -1,7 +1,9 @@
-package com.eomcs.mylist;
+package com.eomcs.mylist.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.eomcs.mylist.domain.Contact;
+import com.eomcs.util.ArrayList;
 
 @RestController 
 public class ContactController {
@@ -19,7 +21,7 @@ public class ContactController {
   @RequestMapping("/contact/add")
   public Object add(Contact contact) {
     contactList.add(contact);
-    return contactList.size;
+    return contactList.size();
   }
 
   @RequestMapping("/contact/get")
@@ -28,7 +30,7 @@ public class ContactController {
     if(index == -1) {
       return "";
     }
-    return contactList.list[index];
+    return contactList.get(index);
   }
   @RequestMapping("/contact/update")
   public Object update(Contact contact) {
@@ -48,8 +50,8 @@ public class ContactController {
     return 1;
   }
   int indexOf(String email) {
-    for(int i = 0; i < contactList.size; i++) {
-      Contact contact = (Contact) contactList.list[i];
+    for(int i = 0; i < contactList.size(); i++) {
+      Contact contact = (Contact) contactList.get(i);
       if(contact.email.equals(email)) {
         return i;
       }
