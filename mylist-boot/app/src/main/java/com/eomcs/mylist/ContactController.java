@@ -13,12 +13,12 @@ public class ContactController {
 
   @RequestMapping("/contact/list")
   public Object list() {
-    return ArrayList.toArray(contactList);  
+    return contactList.toArray();  
   }
 
   @RequestMapping("/contact/add")
   public Object add(Contact contact) {
-    ArrayList.add(contactList, contact);
+    contactList.add(contact);
     return contactList.size;
   }
 
@@ -36,7 +36,7 @@ public class ContactController {
     if (index == -1) {
       return 0;
     }
-    return ArrayList.set(contactList,index, contact) == null ? 0 : 1;
+    return contactList.set(index, contact) == null ? 0 : 1;
   }
   @RequestMapping("/contact/delete")
   public Object delete(String email) {
@@ -44,7 +44,7 @@ public class ContactController {
     if (index == -1) {
       return 0;
     }
-    ArrayList.remove(contactList, index);
+    contactList.remove(index);
     return 1;
   }
   int indexOf(String email) {

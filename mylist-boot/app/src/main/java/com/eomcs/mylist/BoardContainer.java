@@ -10,13 +10,13 @@ public class BoardContainer {
 
   @RequestMapping("/board/list")
   public Object list() {
-    return ArrayList.toArray(boardList); 
+    return boardList.toArray(); 
   }
 
   @RequestMapping("/board/add")
   public Object add(Board board) {
     //board.setCreateDate(new Date(System.currentTimeMillis()));
-    ArrayList.add(boardList,board);
+    boardList.add(board);
     return boardList.size;
   }
 
@@ -38,7 +38,7 @@ public class BoardContainer {
     board.viewCount = old.viewCount;
     board.createDate = old.createDate;
 
-    return ArrayList3.set(index, board) == null ? 0 : 1;
+    return boardList.set(index, board) == null ? 0 : 1;
   }
 
   @RequestMapping("/board/delete")
@@ -46,7 +46,7 @@ public class BoardContainer {
     if (index < 0 || index >= boardList.size) {
       return 0;
     }
-    ArrayList.remove(boardList,index);
+    boardList.remove(index);
     return 1;
   }
 }
