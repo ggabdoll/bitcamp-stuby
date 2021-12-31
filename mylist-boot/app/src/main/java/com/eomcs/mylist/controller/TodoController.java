@@ -55,7 +55,7 @@ public class TodoController {
     if(index < 0 || index >= todoList.size()) {
       return 0;
     }
-    ((Todo)todoList.get(index)).isDone(done) = done;
+    ((Todo)todoList.get(index)).setDone(done);
     return 1;
   }
 

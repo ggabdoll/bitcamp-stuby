@@ -34,7 +34,7 @@ public class ContactController {
   }
   @RequestMapping("/contact/update")
   public Object update(Contact contact) {
-    int index = indexOf(contact.email);
+    int index = indexOf(contact.getEmail());
     if (index == -1) {
       return 0;
     }
@@ -52,7 +52,7 @@ public class ContactController {
   int indexOf(String email) {
     for(int i = 0; i < contactList.size(); i++) {
       Contact contact = (Contact) contactList.get(i);
-      if(contact.email.equals(email)) {
+      if(contact.getEmail().equals(email)) {
         return i;
       }
     }
