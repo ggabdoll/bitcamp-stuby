@@ -23,7 +23,9 @@ public class Exam0163 {
     Member m4 = new Member();
     m4.id = "aaa";
     m4.password = "1111";
-    m4.type = GUEST; // import에서 선언하지 않았다면 스태틱 변수명 앞에 클래스명을 붙여햐 한다.
+    m4.type = GUEST; // import static 명령문에서 변수의 소속을 이미 밝혔기 때문에 클래스 이름 적을 필요가 없다. 
+    // 만약 import에서 선언하지 않았다면 스태틱 변수명 앞에 클래스명을 붙여햐 한다.
+    // ex) Member.id
 
     Member m5 = new Member();
     m5.id = "bbb";
