@@ -25,6 +25,13 @@ public class Exam0691 {
     System.out.println(A.a); // ?
     System.out.println(B.b); // ?
 
+    // 실행결과 
+    // A.static
+    // B.static
+    // 36
+    // 29 
+    // => A class 로딩할때 로딩되지 않은 class 변수를 사용한다면, 그 class를 먼저 로딩하고 로딩된다.
+
     // 클래스 로딩 절차
     // 1) 클래스를 Method Area에 로딩한다.
     // 2) 스태틱 변수를 만든다.
