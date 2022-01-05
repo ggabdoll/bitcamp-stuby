@@ -9,6 +9,9 @@ public class Exam0110 {
   interface Player {
     void play();
   }
+  //아디도다스 
+  //깃 테스트 중입니다 
+  //String 클래스와 생성자 
 
   public static void main(String[] args) {
 
