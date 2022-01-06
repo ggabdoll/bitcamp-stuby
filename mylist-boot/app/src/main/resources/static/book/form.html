@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ADD</title>
+    </head>
+    <body>
+        <style>
+            body {
+                padding: 20px;
+            }
+            input {
+                margin-bottom: 8px;
+                border-left-width: 0;
+                border-right-width: 0;
+                border-top-width: 0;
+                border-bottom: 0.3 solid black;
+            }
+            button {
+                width: 80px;
+                height: 30px;
+                border-radius: 5px;
+            }
+        </style>
+        <h1>New ORNAMENT</h1>
+        <form>
+            <input id="x-title" type="text" placeholder="🙏Title" /><br />
+            <input id="x-author" type="text" placeholder="Author" /><br />
+            <input id="x-press" type="text" placeholder="Press" /><br />
+            <input id="x-price" type="number" placeholder="Price" /><br />
+            <div>🙏는 필수 사항 입니다.</div>
+            <button
+                id="x-add-btn"
+                type="button"
+                style="margin: 20px; background-color: #daddfc; border: 0"
+                onclick="addBook()"
+            >
+                ADD
+            </button>
+            <button id="x-cancle-btn" type="button" style="margin: 20px; border: 0">CANCLE</button>
+        </form>
+
+        <script>
+            var ttt = '';
+            var xTitle = document.querySelector('#x-title');
+            var xAuthor = document.querySelector('#x-author');
+            var xPress = document.querySelector('#x-press');
+            var xPrice = document.querySelector('#x-price');
+            //console.log(xName, xMenu, xTel, xRating);
+            ttt = xTitle.value;
+
+            // document.querySelector('#x-add-btn').onclick = function () {
+            //     if (xName.value == '' || xTel.value == '') {
+            //         alert('제발 🙏는 작성해 주세요 제발제발');
+            //         return;
+            //     }
+            //     fetch(`/book/add`, {
+            //         method: 'POST',
+            //     })
+            //         .then(function (res) {
+            //             return res.text();
+            //         })
+            //         .then(function (text) {
+            //             location.href = 'index.html';
+            //         });
+            // };
+            document.querySelector('#x-cancle-btn').onclick = function () {
+                location.href = 'index.html';
+            };
+
+            const addBook = () => {
+                var bookInfo = {
+                    title: xTitle.value,
+                    author: xAuthor.value,
+                    press: xPress.value,
+                    price: xPrice.value,
+                };
+                if (xTitle.value == '') {
+                    alert('제발 🙏는 작성해 주세요 제발제발');
+                    return;
+                }
+
+                fetch('/book/add', {
+                    method: 'POST',
+                    body: JSON.stringify(bookInfo),
+                })
+                    .then(function (res) {
+                        console.log(bookInfo);
+                        return res.json();
+                    })
+                    .then(function (info) {
+                        //location.href = 'index.html';
+                    });
+            };
+        </script>
+    </body>
+</html>
