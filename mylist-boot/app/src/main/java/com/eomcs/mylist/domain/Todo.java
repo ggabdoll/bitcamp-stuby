@@ -1,8 +1,15 @@
 package com.eomcs.mylist.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Todo { 
   String title;
   boolean done;
+
+  public Todo() {
+    System.out.println("Contact() 호출됨!");
+  }
 
   public String getTitle() {
     return title;

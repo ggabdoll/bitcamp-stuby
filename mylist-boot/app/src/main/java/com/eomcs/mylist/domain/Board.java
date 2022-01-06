@@ -1,11 +1,18 @@
 package com.eomcs.mylist.domain;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class Board {
   int index;
   String title;
   String content;
   int viewCount;
   java.sql.Date createDate;
+
+  public Board() {
+    System.out.println("Contact() 호출됨!");
+  }
 
   public int getIndex() {
     return index;

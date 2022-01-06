@@ -11,7 +11,11 @@ public class ContactController {
   //Contact 객체 목록을 저장할 메모리 준비
   //=> Object[] list = new Object[5];
   //=> int siae = 0;
-  ArrayList contactList = new ArrayList();  
+  ArrayList contactList;  
+
+  public ContactController() {
+    contactList = new ArrayList();
+  }
 
   @RequestMapping("/contact/list")
   public Object list() {
