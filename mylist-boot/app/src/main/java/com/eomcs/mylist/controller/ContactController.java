@@ -21,26 +21,12 @@ public class ContactController {
 
     StringBuilder buf = new StringBuilder();
     int c;
-    while (true) {
-      c = in.read(); // 파일에서 한 문자를 읽는다. 
-      if(c == -1) { // 더이상 읽을 문자가 없다면 반복문을 종료한다. 
-        break;
-      }
-      if(c == '\n') {
-        String csvStr = buf.toString(); // ex) "홍길동,hong@test.com,010-2222-2222, 비트"
-        String[] values = csvStr.split(",");
-
-        Contact contact = new Contact(); // 파일에서 읽은 데이터를 담을 객체를 준비한다.
-        contact.setName(values[0]); //배열에 들어 있는 각 항목을 객체의 필드에 저장한다. 
-        contact.setEmail(values[1]);
-        contact.setTel(values[2]);
-        contact.setCompany(values[3]);
-
-        contactList.add(contact); // 데이터를 담은 객체를 목록에 추가한다. 
-
+    while ((c = in.read()) != -1) {
+      if(c == '\n') { 
+        contactList.add(Contact.valueOf(buf.toString())); // 데이터를 담은 객체를 목록에 추가한다. 
         buf.setLength(0); // 다음 데이터를 읽기 위해 버퍼를 초기화한다. 
       } else {
-        buf.append((char) c);
+        buf.append((char) c); // 
       }
     }
     in.close();
@@ -93,7 +79,7 @@ public class ContactController {
       out.write(contact.toCsvString() + "\n");
     }
     out.close();
-    return 0;
+    return arr.length;
   }
 
   int indexOf(String email) {

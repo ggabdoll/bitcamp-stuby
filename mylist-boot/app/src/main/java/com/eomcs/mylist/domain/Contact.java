@@ -9,10 +9,35 @@ public class Contact {
   String tel;
   String company;
 
-  //  public Contact() {
-  //    System.out.println("Contact() 호출됨!");
-  //  }
+  public Contact() {}
+  public Contact(String csvStr) {
+    String[] values = csvStr.split(",");
 
+    this.setName(values[0]); //배열에 들어 있는 각 항목을 객체의 필드에 저장한다. 
+    this.setEmail(values[1]);
+    this.setTel(values[2]);
+    this.setCompany(values[3]);
+  }
+
+  //적용기술 
+  // => 스태틱 메서드 : 특정 인스턴스에 종속되지 않고 사용하는 메서드.
+  // => GoF의 'Factory Mdthod' 패턴
+  //    객체 생성 과정이 복잡할 경우 new 명령을 통해 직접 객체를 생성하는 대신에
+  //    메서드를 통해 객체를 리턴 받는다. 
+  //    이렇게 객체를 만들어 주는 메서드를 "공장 메서드(factory method)"라 부른다. 
+
+  public static Contact valueOf(String csvStr) {
+    String[] values = csvStr.split(",");
+
+    Contact contact = new Contact();
+
+    contact.setName(values[0]); //배열에 들어 있는 각 항목을 객체의 필드에 저장한다.
+    contact.setEmail(values[1]);
+    contact.setTel(values[2]);
+    contact.setCompany(values[3]);
+
+    return contact;
+  }
   // 적용 기술
   // => 인스턴스 메서드 : 인스턴스 멤버를 사용한다면 인스턴스 메서드로 만들라!
   // => GRASP Infromation Expert 패턴
