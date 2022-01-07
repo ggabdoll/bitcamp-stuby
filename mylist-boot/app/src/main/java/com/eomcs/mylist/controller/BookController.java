@@ -43,7 +43,7 @@ public class BookController {
     if (index < 0 || index >= bookList.size()) {
       return 0;
     }
-    Book old = (Book) bookList.get(index);
+    //Book old = (Book) bookList.get(index);
     //book.setReadDate(old.getReadDate());
 
     return bookList.set(index, book) == null ? 0 : 1;

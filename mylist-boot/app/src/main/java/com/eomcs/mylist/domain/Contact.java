@@ -9,8 +9,21 @@ public class Contact {
   String tel;
   String company;
 
-  public Contact() {
-    System.out.println("Contact() 호출됨!");
+  //  public Contact() {
+  //    System.out.println("Contact() 호출됨!");
+  //  }
+
+  // 적용 기술
+  // => 인스턴스 메서드 : 인스턴스 멤버를 사용한다면 인스턴스 메서드로 만들라!
+  // => GRASP Infromation Expert 패턴
+  //    데이터를 가공하는 기능은 그 데이터를 갖고 있는 클래스에 둬야 한다.  
+  public String toCsvString() {
+    return String.format("%s,%s,%s,%s", 
+        this.getName(),
+        this.getEmail(), 
+        this.getTel(),
+        this.getCompany()
+        );
   }
 
 

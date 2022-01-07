@@ -10,9 +10,9 @@ public class Board {
   int viewCount;
   java.sql.Date createDate;
 
-  public Board() {
-    System.out.println("Contact() 호출됨!");
-  }
+  //  public Board() {
+  //    System.out.println("Contact() 호출됨!");
+  //  }
 
   public int getIndex() {
     return index;
