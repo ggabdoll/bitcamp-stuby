@@ -73,9 +73,10 @@
                 <tr>
                     <th class="idx"></th>
                     <th class="title">TITLE</th>
-                    <th class="view">AUTHOR</th>
-                    <th class="view">PRESS</th>
-                    <th class="view">PRICE</th>
+                    <th class="author">AUTHOR</th>
+                    <th class="press">PRESS</th>
+                    <th class="page">PAGE</th>
+                    <th class="price">PRICE</th>
                     <th class="date">ReadDate</th>
                 </tr>
             </thead>
@@ -102,6 +103,7 @@
                         }</a></td>
                         <td class='view'>${list[i].author}</td>
                         <td>${list[i].press}</td>
+                        <td>${list[i].readPage}/${list[i].page}</td>
                         <td>${list[i].price}</td>
                         <td>${list[i].readDate}</td>`;
                         tbody.appendChild(tr);

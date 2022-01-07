@@ -8,19 +8,26 @@ public class Book {
   String author;
   String press;
   int page;
+  int readPage;
   int price;
   Date readDate;
   String feed;
   @Override
   public String toString() {
     return "Book [title=" + title + ", author=" + author + ", press=" + press + ", page=" + page
-        + ", price=" + price + ", readDate=" + readDate + ", feed=" + feed + "]";
+        +", readPage=" + readPage  + ", price=" + price + ", readDate=" + readDate + ", feed=" + feed + "]";
   }
   public String getTitle() {
     return title;
   }
   public void setTitle(String title) {
     this.title = title;
+  }
+  public int getReadPage() {
+    return readPage;
+  }
+  public void setReadPage(int readPage) {
+    this.readPage = readPage;
   }
   public String getAuthor() {
     return author;

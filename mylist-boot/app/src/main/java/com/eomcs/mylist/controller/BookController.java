@@ -1,5 +1,6 @@
 package com.eomcs.mylist.controller;
 
+import java.sql.Date;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +22,9 @@ public class BookController {
     return bookList.toArray(); 
   }
 
-  @PostMapping("/book/add")
+  @PostMapping(value = "/book/add")
   public Object add(@RequestBody Book book) {
-    //book.setCreateDate(new Date(System.currentTimeMillis()));
+    book.setReadDate(new Date(System.currentTimeMillis()));
     bookList.add(book);
     return bookList.size();
   }
@@ -38,12 +39,12 @@ public class BookController {
   };
 
   @RequestMapping("/book/update")
-  public Object update(int index, Book book) {
+  public Object update( int index, @RequestBody Book book) {
     if (index < 0 || index >= bookList.size()) {
       return 0;
     }
     Book old = (Book) bookList.get(index);
-    book.setReadDate(old.getReadDate());
+    //book.setReadDate(old.getReadDate());
 
     return bookList.set(index, book) == null ? 0 : 1;
   }

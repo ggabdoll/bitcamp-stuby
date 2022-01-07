@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VIEW</title>
+    </head>
+    <body>
+        <style>
+            body {
+                padding: 20px;
+                align-items: center;
+                justify-content: center;
+            }
+            h1 {
+                align-self: center;
+            }
+            .container {
+                display: flex;
+                width: 50vw;
+            }
+            input {
+                margin-left: 3vw;
+                margin-bottom: 10px;
+                border-left-width: 0;
+                border-right-width: 0;
+                border-top-width: 0;
+                border-bottom: 0.3 solid black;
+                font-size: 20px;
+                text-align: center;
+                outline-style: none;
+            }
+            button {
+                width: 80px;
+                height: 30px;
+                border-radius: 5px;
+                margin-left: 80px;
+            }
+            .boarderBox {
+                display: flex;
+                width: 30vw;
+                height: 40vh;
+                border: 1px solid black;
+                border-radius: 10px;
+                justify-content: center;
+                padding: 10px;
+            }
+            textarea {
+                border: 0;
+                outline-style: none;
+            }
+            #x-page {
+                font-size: 25px;
+                margin-left: 5px;
+            }
+        </style>
+        <h1>MORE</h1>
+        <div class="container">
+            <div class="boarderBox">
+                <div>
+                    <input id="x-title" type="text" placeholder="Title" /><br />
+                    <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea
+                    ><br />
+                </div>
+            </div>
+            <div class="input-box">
+                <input type="date" id="x-date" placeholder="ReadDate" />
+                <input id="x-author" type="text" placeholder="Author" /><br />
+                <input id="x-press" type="text" placeholder="Press" /><br />
+                <input id="x-read-page" type="number" placeholder="ReadPage" /><span
+                    id="x-page"
+                ></span
+                ><br />
+                <input id="x-price" type="number" placeholder="Price" /><br />
+            </div>
+        </div>
+        <button id="x-update-btn" type="button" style="margin: 20px; background-color: #daddfc">
+            UPDATE
+        </button>
+        <button id="x-delete-btn" type="button" style="margin: 20px; background-color: #ff5151">
+            DELETE
+        </button>
+        <button id="x-cancle-btn" type="button" style="margin: 20px">CANCLE</button>
+
+        <script>
+            var arr = location.href.split('?');
+
+            if (arr.length == 1) {
+                alert('요청이 옳바르지 않습니다.');
+                throw 'URL 형식 오류!';
+            }
+
+            var params = new URLSearchParams(arr[1]);
+            var index = params.get('index');
+
+            if (index == null) {
+                alert('인덱스 없는데?');
+                throw 'Pram Error!!';
+            }
+
+            var xTitle = document.querySelector('#x-title');
+            var xContent = document.querySelector('textarea');
+            var xDate = document.querySelector('#x-date');
+            var xAuthor = document.querySelector('#x-author');
+            var xPress = document.querySelector('#x-press');
+            var xPrice = document.querySelector('#x-price');
+            var xPage = document.querySelector('#x-page');
+            var xReadPage = document.querySelector('#x-read-page');
+            var AllPage = '';
+            fetch(`/book/get?index=${index}`)
+                .then(function (res) {
+                    return res.json();
+                })
+                .then(function (data) {
+                    if (data.feed == undefined) {
+                        xContent.value = '';
+                    }
+                    xTitle.value = data.title;
+                    xContent.value = data.feed;
+                    xDate.value = data.readDate;
+                    xAuthor.value = data.author;
+                    xPress.value = data.press;
+                    xPrice.value = data.price;
+                    xPage.innerHTML = `  / ${data.page}`;
+                    xReadPage.value = data.readPage;
+                    AllPage = data.page;
+                });
+
+            document.querySelector('#x-update-btn').onclick = function () {
+                var bookInfo = {
+                    title: xTitle.value,
+                    feed: xContent.value,
+                    readDate: xDate.value,
+                    author: xAuthor.value,
+                    press: xPress.value,
+                    price: xPrice.value,
+                    page: AllPage,
+                    readPage: xReadPage.value,
+                };
+                if (xTitle.value == '') {
+                    alert(
+                        `🙏'제목'을 작성하던가'Cancle'버튼을 누르던가🙏\n            🙏하나만 하세요🙏`
+                    );
+                    return;
+                }
+                fetch(`/book/update?index=${index}`, {
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(bookInfo),
+                })
+                    .then(function (res) {
+                        return res.json();
+                    })
+                    .then(function (update) {
+                        console.log(update);
+                        location.href = 'index.html';
+                    });
+            };
+            document.querySelector('#x-cancle-btn').onclick = function () {
+                location.href = 'index.html';
+            };
+            document.querySelector('#x-delete-btn').onclick = function () {
+                fetch(`/book/delete?index=${index}`)
+                    .then(function (res) {
+                        return res.json();
+                    })
+                    .then(function (result) {
+                        console.log(result);
+                        location.href = 'index.html';
+                    });
+            };
+        </script>
+    </body>
+</html>
