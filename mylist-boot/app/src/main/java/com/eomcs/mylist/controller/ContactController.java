@@ -38,8 +38,9 @@ public class ContactController {
   }
 
   @RequestMapping("/contact/add")
-  public Object add(Contact contact) {
+  public Object add(Contact contact)throws Exception {
     contactList.add(contact);
+    this.save();
     return contactList.size();
   }
 
