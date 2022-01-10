@@ -10,7 +10,7 @@ public class ArrayList {
   // 배열에 항목을 추가한다. 
   // 배열이 꽉찼으면 배열의 크기를 늘린다.
   // 인스턴스 주소를 앞쪽에서 받으려면 static 키워드를 붙이면 안된다. 
-  // 즉 non-static 메서드로 저의해야 한다. 
+  // 즉 non-static 메서드로 정의해야 한다. 
   // 그리고 메서드가 호출될 때 받은 인스턴스를 사용하려면 내장 변수 this를 이용해야 한다.
   public void add(Object obj) {
     if(this.size == this.list.length) {
