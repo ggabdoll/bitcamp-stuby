@@ -21,7 +21,7 @@ public class Contact {
 
   //적용기술 
   // => 스태틱 메서드 : 특정 인스턴스에 종속되지 않고 사용하는 메서드.
-  // => GoF의 'Factory Mdthod' 패턴
+  // => GoF의 'Factory Method' 패턴
   //    객체 생성 과정이 복잡할 경우 new 명령을 통해 직접 객체를 생성하는 대신에
   //    메서드를 통해 객체를 리턴 받는다. 
   //    이렇게 객체를 만들어 주는 메서드를 "공장 메서드(factory method)"라 부른다. 

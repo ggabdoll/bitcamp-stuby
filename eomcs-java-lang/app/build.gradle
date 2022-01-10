@@ -55,7 +55,7 @@ eclipse {
 // eclipse 프로젝트 이름을 설정하기
 eclipse {
     project {
-        name = "java-lang"
+        name = "eomcs-java-lang"
     }
 }
 
