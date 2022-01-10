@@ -1,6 +1,5 @@
 package com.eomcs.mylist.controller;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.sql.Date;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +17,7 @@ public class BookController {
   public BookController() throws Exception {
     bookList = new ArrayList();
 
-    FileReader in = new FileReader("books.csv");
+    com.eomcs.io.FileReader2 in = new com.eomcs.io.FileReader2("books.csv");
 
     StringBuilder buf = new StringBuilder();
     int c;
@@ -26,7 +25,10 @@ public class BookController {
       if(c == '\n') { 
         bookList.add(Book.valueOf(buf.toString())); // 데이터를 담은 객체를 목록에 추가한다. 
         buf.setLength(0); // 다음 데이터를 읽기 위해 버퍼를 초기화한다. 
-      } else {
+      }
+      else if(c =='\r') {
+        // 무시! CR(Carrage Return; \r) 코드는 버퍼에 담지 말고 버린다.
+      }else {
         buf.append((char) c); // 
       }
     }

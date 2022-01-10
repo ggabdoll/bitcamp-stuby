@@ -23,7 +23,10 @@ public class TodoController {
       if(c == '\n') { 
         todoList.add(Todo.valueOf(buf.toString())); // 데이터를 담은 객체를 목록에 추가한다. 
         buf.setLength(0); // 다음 데이터를 읽기 위해 버퍼를 초기화한다. 
-      } else {
+      }
+      else if(c =='\r') {
+        // 무시! CR(Carrage Return; \r) 코드는 버퍼에 담지 말고 버린다.
+      }else {
         buf.append((char) c); // 
       }
     }

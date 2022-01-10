@@ -18,15 +18,9 @@ public class ContactController {
     contactList = new ArrayList();
     com.eomcs.io.FileReader2 in = new com.eomcs.io.FileReader2("contacts.csv");
 
-    StringBuilder buf = new StringBuilder();
-    int c;
-    while ((c = in.read()) != -1) {
-      if(c == '\n') { 
-        contactList.add(Contact.valueOf(buf.toString())); // 데이터를 담은 객체를 목록에 추가한다. 
-        buf.setLength(0); // 다음 데이터를 읽기 위해 버퍼를 초기화한다. 
-      } else {
-        buf.append((char) c); // 
-      }
+    String line;
+    while ((line = in.readLine()).length() == 0) {// 빈 줄을 리턴 받았으면 읽기를 종료한다.
+      contactList.add(Contact.valueOf(line)); // 파일에서 읽은 한 줄의 CSV 데이터로 객체를 만든 후 목록에 등록한다.
     }
     in.close();
   }
