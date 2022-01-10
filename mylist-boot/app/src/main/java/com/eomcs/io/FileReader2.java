@@ -20,7 +20,7 @@ public class FileReader2 extends FileReader{
       if(c == '\n') { // 만약 읽은 문자가 줄바꿈 이면, 지금까지 버퍼에 저장한 문자를 리턴한다.  
         return sb.toString();  
       }else if(c == '\r') {
-        //무시! CR(Carrage Return; 
+        // 무시! CR(Carrage Return; \r) 코드는 버퍼에 담지 말고 버린다.
       }else {
         sb.append((char) c); // 
       }

@@ -1,8 +1,8 @@
 package com.eomcs.mylist.controller;
 
-import java.io.FileWriter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.eomcs.io.FileWriter2;
 import com.eomcs.mylist.domain.Contact;
 import com.eomcs.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class ContactController {
     com.eomcs.io.FileReader2 in = new com.eomcs.io.FileReader2("contacts.csv");
 
     String line;
-    while ((line = in.readLine()).length() == 0) {// 빈 줄을 리턴 받았으면 읽기를 종료한다.
+    while ((line = in.readLine()).length() != 0) {// 빈 줄을 리턴 받았으면 읽기를 종료한다.
       contactList.add(Contact.valueOf(line)); // 파일에서 읽은 한 줄의 CSV 데이터로 객체를 만든 후 목록에 등록한다.
     }
     in.close();
@@ -65,12 +65,12 @@ public class ContactController {
 
   @RequestMapping("/contact/save")
   public Object save() throws Exception {
-    FileWriter out = new FileWriter("contacts.csv"); // 따로 경로를 지정하지 않으면 프로젝트 폴더에 파일이 생성된다. 
+    FileWriter2 out = new FileWriter2("contacts.csv"); // 따로 경로를 지정하지 않으면 프로젝트 폴더에 파일이 생성된다. 
 
     Object[] arr = contactList.toArray();
     for(Object obj : arr) {
       Contact contact = (Contact) obj;
-      out.write(contact.toCsvString() + "\n");
+      out.println(contact.toCsvString());
     }
     out.close();
     return arr.length;

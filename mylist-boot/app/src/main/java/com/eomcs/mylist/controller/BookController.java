@@ -1,11 +1,11 @@
 package com.eomcs.mylist.controller;
 
-import java.io.FileWriter;
 import java.sql.Date;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.eomcs.io.FileWriter2;
 import com.eomcs.mylist.domain.Book;
 import com.eomcs.util.ArrayList;
 
@@ -19,18 +19,9 @@ public class BookController {
 
     com.eomcs.io.FileReader2 in = new com.eomcs.io.FileReader2("books.csv");
 
-    StringBuilder buf = new StringBuilder();
-    int c;
-    while ((c = in.read()) != -1) {
-      if(c == '\n') { 
-        bookList.add(Book.valueOf(buf.toString())); // 데이터를 담은 객체를 목록에 추가한다. 
-        buf.setLength(0); // 다음 데이터를 읽기 위해 버퍼를 초기화한다. 
-      }
-      else if(c =='\r') {
-        // 무시! CR(Carrage Return; \r) 코드는 버퍼에 담지 말고 버린다.
-      }else {
-        buf.append((char) c); // 
-      }
+    String line;
+    while ((line = in.readLine()).length() != 0) {// 빈 줄을 리턴 받았으면 읽기를 종료한다.
+      bookList.add(Book.valueOf(line)); // 파일에서 읽은 한 줄의 CSV 데이터로 객체를 만든 후 목록에 등록한다.
     }
     in.close();
   }
@@ -69,12 +60,12 @@ public class BookController {
 
   @RequestMapping("/book/save")
   public Object save() throws Exception {
-    FileWriter out = new FileWriter("books.csv"); // 따로 경로를 지정하지 않으면 프로젝트 폴더에 파일이 생성된다. 
+    FileWriter2 out = new FileWriter2("books.csv"); // 따로 경로를 지정하지 않으면 프로젝트 폴더에 파일이 생성된다. 
 
     Object[] arr = bookList.toArray();
     for(Object obj : arr) {
       Book book = (Book) obj;
-      out.write(book.toCsvString() + "\n");
+      out.println(book.toCsvString());
     }
     out.close();
     return arr.length;
