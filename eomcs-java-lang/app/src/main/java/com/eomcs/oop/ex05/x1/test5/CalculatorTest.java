@@ -13,7 +13,7 @@ public class CalculatorTest {
     c2.minus(200);
     c2.multiple(2); // 기존 클래스에 새로 추가한 메서드를 호출한다.
 
-    System.out.println(c2.origin.result);
+    System.out.println(c2.getResult());
 
   }
 

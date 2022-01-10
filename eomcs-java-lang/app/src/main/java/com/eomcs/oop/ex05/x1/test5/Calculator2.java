@@ -16,4 +16,8 @@ public class Calculator2 {
   public void multiple(int value) {
     origin.result *= value;
   }
+
+  public int getResult() {
+    return origin.result;
+  }
 }
