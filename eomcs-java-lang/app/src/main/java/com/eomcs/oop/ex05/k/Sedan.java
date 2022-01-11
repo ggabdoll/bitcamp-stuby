@@ -1,13 +1,13 @@
 package com.eomcs.oop.ex05.k;
 
 public class Sedan {
-  public void start() {
+  public void launch() {
     System.out.println("시동 건다!");
   }
-  public void shutdown() {
+  public void stop() {
     System.out.println("시동 끈다!");
   }
-  public void run() {
+  public void go() {
     System.out.println("쌩쌩 달린다.");
   }
   public void doSunroof(boolean open) {
