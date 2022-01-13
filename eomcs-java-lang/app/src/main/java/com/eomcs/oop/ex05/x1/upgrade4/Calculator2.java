@@ -1,6 +1,6 @@
-package com.eomcs.oop.ex05.x1.test5;
+package com.eomcs.oop.ex05.x1.upgrade4;
 
-import com.eomcs.oop.ex05.x1.test.Calculator;
+import com.eomcs.oop.ex05.x1.Calculator;
 
 public class Calculator2 extends Calculator{
 

@@ -1,6 +1,8 @@
-package com.eomcs.oop.ex05.x1.test3;
+package com.eomcs.oop.ex05.x1.upgrade2;
 
-//기존의 Calculator 클래스를 복제한 후 기능을 추가한다.
+// 5) 계산기 기능 확장 방법5 - 의존 객체 주입 방식을 적용하여 기능 확장
+//    - 곱하기 기능 추가
+//    - 기존의 Calculator 클래스를
 public class CalculatorTest {
 
   public static void main(String[] args) {
