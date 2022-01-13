@@ -1,17 +1,15 @@
-package com.eomcs.oop.ex05.x2.app1;
-
-import com.eomcs.oop.ex05.Engine;
+package com.eomcs.oop.ex05.x3.app3;
 
 // 캠핑카 만들기
 //
-// 1) 기존 모드에 기능 덧붙이기 
+// 1) app1에서 copy해온 코드에 기능 덧 붙이기
 
 public class CarTest3 {
 
   public static void main(String[] args) {
-    // Engine Class에 시동 걸고 끄는 기능을 추가한다.
-    // => start(), stop() 메서드 추가 
-    // => run() 메서드 변경
+    // CampingTrailer Class를 만든다. 
+    // Engine 클래스에 트레일러를 설정하는 변수와 메서드를 추가한다. 
+    // - trailer, setTrailer
 
     CampingTrailer trailer = new CampingTrailer();
 
