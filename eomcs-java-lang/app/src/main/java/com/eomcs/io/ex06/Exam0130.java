@@ -11,7 +11,7 @@ public class Exam0130 {
     long startTime = System.currentTimeMillis(); // 밀리초
 
     int callCount = 0;
-    while ((b = in.read()) != -1)
+    while ((b = in.read()) != -1 )
       callCount++; // 파일을 끝까지 읽는다.
 
     // => BufferedInputStream의 read() 메서드는
