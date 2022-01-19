@@ -3,7 +3,7 @@ package com.eomcs.mylist.domain;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Todo { 
+public class Todo implements java.io.Serializable{ 
   String title;
   boolean done;
 

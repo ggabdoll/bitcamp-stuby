@@ -2,7 +2,7 @@ package com.eomcs.mylist.domain;
 
 import java.sql.Date;
 
-public class Book {
+public class Book implements java.io.Serializable{
 
   String title;
   String author;
@@ -10,7 +10,7 @@ public class Book {
   int page;
   int readPage;
   int price;
-  Date readDate;
+  java.sql.Date readDate;
   String feed;
 
   public Book() {}

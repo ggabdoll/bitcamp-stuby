@@ -1,17 +1,27 @@
 package com.eomcs.mylist.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Board {
-  int index;
+public class Board implements Serializable {
   String title;
   String content;
   int viewCount;
   java.sql.Date createDate;
 
   public Board() {}
+
+  public Board(String csvStr) {
+    // 예) csvStr => "제목,내용,조회수,등록일"
+
+    String[] values = csvStr.split(","); 
+    this.setTitle(values[0]); 
+    this.setContent(values[1]);
+    this.setViewCount(Integer.valueOf(values[2]));
+    this.setCreateDate(Date.valueOf(values[3]));
+  }
 
   public static Board valueOf(String csvStr) {
     String[] values = csvStr.split(",");
@@ -35,12 +45,6 @@ public class Board {
         );
   }
 
-  public int getIndex() {
-    return index;
-  }
-  public void setIndex(int index) {
-    this.index = index;
-  }
   public String getTitle() {
     return title;
   }
@@ -67,7 +71,7 @@ public class Board {
   }
   @Override
   public String toString() {
-    return "Board [index=" + index + ", title=" + title + ", content=" + content + ", viewCount="
+    return "Board [title=" + title + ", content=" + content + ", viewCount="
         + viewCount + ", createDate=" + createDate + "]";
   }
 
