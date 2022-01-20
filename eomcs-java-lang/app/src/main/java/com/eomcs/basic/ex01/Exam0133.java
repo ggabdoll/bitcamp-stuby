@@ -17,6 +17,11 @@ public class Exam0133 {
     // Object로부터 상속 받은 equals() 메서드를 
     // Member 클래스의 역할에 맞게 재정의해보자! => "오버라이딩"
     @Override
+    public int hashCode() {
+      return Objects.hash(age, name);
+    }
+
+    @Override
     public boolean equals(Object obj) {
       if (this == obj)
         return true;
@@ -27,6 +32,8 @@ public class Exam0133 {
       Member other = (Member) obj;
       return age == other.age && Objects.equals(name, other.name);
     }
+
+
   }
 
   public static void main(String[] args) {
