@@ -14,6 +14,10 @@ public class Command {
     }
   }
 
+  public String getName() {
+    return name;
+  }
+
   public String getString(int paramIndex) {
     return (String) params.get(paramIndex);
   }
