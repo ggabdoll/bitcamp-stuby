@@ -2,13 +2,13 @@ package com.eomcs;
 
 public class CommandHandler {
 
-  static void doHelp() {
+  void doHelp() {
     System.out.println("add   [값1] [값2]     더하기 계산을 수행한다.");
     System.out.println("minus [값1] [값2]     빼기 계산을 수행한다.");
     System.out.println("help                  도움말을 출력한다.");
   }
 
-  static void add(Command command) {
+  void add(Command command) {
     if (command.getParamSize() != 2) {
       System.out.println("세상에,,, 명령어 입력 형식이 옳지 않습니다.");
     } else {
@@ -18,7 +18,7 @@ public class CommandHandler {
     }
   }
 
-  static void minus(Command command) {
+  void minus(Command command) {
     if (command.getParamSize() != 2) {
       System.out.println("세상에,,, 명령어 입력 형식이 옳지 않습니다.");
     } else {
@@ -28,7 +28,7 @@ public class CommandHandler {
     }
   }
 
-  static void multiple(Command command) {
+  void multiple(Command command) {
     if (command.getParamSize() != 2) {
       System.out.println("세상에,,, 명령어 입력 형식이 옳지 않습니다.");
     } else {
