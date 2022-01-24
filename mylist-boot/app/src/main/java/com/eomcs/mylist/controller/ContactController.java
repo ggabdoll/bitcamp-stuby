@@ -72,7 +72,7 @@ public class ContactController {
 
   @RequestMapping("/contact/save")
   public Object save() throws Exception {
-    ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("contacts.ser"))); 
+    ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("contacts.ser2"))); 
 
     out.writeObject(contactList);
     out.close();

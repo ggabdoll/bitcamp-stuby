@@ -76,7 +76,7 @@ public class BoardContainer {
 
   @RequestMapping("/board/save")
   public Object save() throws Exception {
-    ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("boards.data")));
+    ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("boards.ser")));
 
     // 1) 다음과 같이 몰록에 들어 있는 객체를 한 개씩 순차적으로 serialize 할 수도 있고, 
     //    Object[] arr = boardList.toArray();
