@@ -9,6 +9,12 @@ public class ArrayList implements Serializable {
   Object[] list = new Object[5];
   int size = 0; 
 
+  public ArrayList() {};
+
+  public ArrayList(Object[] arr) {
+    addAll(arr);
+  }
+
   // 배열에 항목을 추가한다. 
   // 배열이 꽉찼으면 배열의 크기를 늘린다.
   // 인스턴스 주소를 앞쪽에서 받으려면 static 키워드를 붙이면 안된다. 
@@ -19,6 +25,12 @@ public class ArrayList implements Serializable {
       this.list = this.grow();//메서드 이름에서 해당 코드에 대한 설명을 짐작할 수 있다. 
     }
     this.list[this.size++] = obj;
+  }
+
+  public void addAll(Object[] arr) {
+    for(Object obj : arr) {
+      add(obj);
+    }
   }
 
   Object[] grow() {
