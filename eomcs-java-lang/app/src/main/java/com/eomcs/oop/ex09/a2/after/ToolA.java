@@ -18,6 +18,12 @@ public class ToolA implements Spec {
   public void m1() {
     System.out.println("ToolA.m1()");
   }
+
+
+  //Exam02에서 use메서드를 사용할때 Spec에서 선언된 method만 사용할 수 있다.
+  public void m2() {
+    System.out.println("ToolA.m2()");
+  }
 }
 
 
