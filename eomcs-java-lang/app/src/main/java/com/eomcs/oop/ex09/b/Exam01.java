@@ -42,7 +42,7 @@ abstract class MyInterfaceImpl implements MyInterface {
 
   // 인터페이스의 모든 메서드를 구현해야 한다.
   // 한 개라도 빠뜨린다면 concrete 클래스가 될 수 없다.
-  // 추상 클래스로 선언해야 한다.
+  // 한 개라도 빠뜨리면 추상 클래스로 선언해야 한다.
 }
 
 class MyInterfaceImpl2 implements MyInterface {

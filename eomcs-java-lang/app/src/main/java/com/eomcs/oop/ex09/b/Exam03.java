@@ -26,6 +26,9 @@ interface MyInterface3 {
 // 2) 인터페이스 구현
 class MyInterface3Impl implements MyInterface3 {
 
+  //"Impl"
+  // 인터페이스를 구현한 구현체 임을 나타내기 위한 표기법!!
+
   // 추상 메서드는 반드시 구현해야 한다.
   @Override
   public void m1() {
