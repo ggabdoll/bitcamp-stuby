@@ -34,7 +34,7 @@ class LoveLetter extends Letter {
 
   @Override
   public void printHeader() {
-    System.out.println("♥♥♥♥♥♥♥♥♥♥♥♥♥♥ [사랑을 그대에게] ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥");
+    System.out.println("♥♥♥♥♥♥♥♥♥♥♥♥♥♥ [사랑을에게] ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥");
   }
 
   @Override
