@@ -35,37 +35,39 @@ public class Worker extends Thread{
       String requestUri = requestLine.split(" ")[1]; // 예) GET /plus/100/200 HTTP/1.1
       String[] values = requestUri.split("/");
 
+
       if (values.length == 4) {
         String op = URLDecoder.decode(values[1], "UTF-8");
         int a = Integer.parseInt(values[2]);
         int b = Integer.parseInt(values[3]);
+        String response = null;
+
+        switch (op) {
+          case "+": 
+            response = String.format("명준호 노트북 사라: %d + %d = %d\n", a, b , a+b);
+            break;
+          case "-": 
+            response = String.format("명준호 노트북 사라: %d - %d = %d\n",a,b, a - b);
+            break;
+          case "/":
+            response = String.format("명준호 노트북 사라: %d / %d = %d\n",a,b, a / b);
+            break;
+          case "*":
+            response = String.format("명준호 노트북 사라: %d * %d = %d\n",a,b, a * b);
+            break;
+          default: 
+            out.println("명준호 노트북 사라: 지원하지 않는 연산자입니다.");
+        }
+
+        writeResponse(out, response);
 
       } else {
         writeResponse(out, "요청 형식이 올바르지 않습니다.");
-        out.println("계산식이 올바르지 않습니다.");
-
       }
       // 클라이언트와의 연결을 끊음
       socket.close();
       System.out.println("클라이언트 연결 종료!");
-      String response = null;
-      writeResponse(out, "예?");
-      switch (values[0]) {
-        case "+": 
-          response = String.format( out.printf("명준호 노트북 사라: %d + %d = %d\n", a, b, (a+b)));
-          break;
-        case "-": 
-          response = String.format( out.printf("명준호 노트북 사라: %d - %d = %d\n", a,  b, (a-b)));
-          break;
-        case "/":
-          response = String.format( out.printf("명준호 노트북 사라: %d / %d = %d\n", a,  b, (a / b)));
-          break;
-        case "*":
-          response = String.format( out.printf("명준호 노트북 사라: %d * %d = %d\n", a,  b, (a * b)));
-          break;
-        default: 
-          out.println("명준호 노트북 사라: 지원하지 않는 연산자입니다.");
-      }
+
     }catch(Exception e) {
       e.printStackTrace();
     }
