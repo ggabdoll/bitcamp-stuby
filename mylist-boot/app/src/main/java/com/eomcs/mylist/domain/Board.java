@@ -2,9 +2,9 @@ package com.eomcs.mylist.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 public class Board implements Serializable {
   String title;
   String content;
