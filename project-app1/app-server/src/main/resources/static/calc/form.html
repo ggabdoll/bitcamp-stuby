@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>웹 계산기</title>
+    </head>
+    <body>
+        <style>
+            body {
+                padding: 20px;
+                align-items: center;
+                justify-content: center;
+            }
+            h1 {
+                align-self: center;
+            }
+            input {
+                margin-left: 3vw;
+                margin-bottom: 10px;
+                border-left-width: 0;
+                border-right-width: 0;
+                border-top-width: 0;
+                border-bottom: 0.3 solid black;
+                font-size: 20px;
+                text-align: center;
+                outline-style: none;
+            }
+            #x-result {
+                width: 40vw;
+                margin-left: 3vw;
+                margin-bottom: 10px;
+                border-left-width: 0;
+                border-right-width: 0;
+                border-top-width: 0;
+                border-bottom: 0.3 solid black;
+                font-size: 20px;
+                text-align: center;
+                outline-style: none;
+            }
+            button {
+                width: 80px;
+                height: 30px;
+                border-radius: 5px;
+                margin-left: 80px;
+            }
+            .boarderBox {
+                display: flex;
+                width: 30vw;
+                height: 40vh;
+                border: 1px solid black;
+                border-radius: 10px;
+                justify-content: center;
+                padding: 10px;
+            }
+            textarea {
+                border: 0;
+                outline-style: none;
+            }
+        </style>
+        <h1>웹 계산기</h1>
+        <form>
+            <input id="x-a" type="text" placeholder="a" />
+            <select id="x-op">
+                <option value="">연산자 선택</option>
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+
+            <input id="x-b" type="text" placeholder="b" />
+            <input id="x-result" type="text" />
+
+            <div class="btnContainer">
+                <button
+                    id="x-add-btn"
+                    type="button"
+                    style="margin: 20px; background-color: #daddfc; border: 0; margin-left: 80px"
+                >
+                    CALC
+                </button>
+                <button id="x-cancle-btn" type="button" style="margin: 20px; border: 0">
+                    CANCLE
+                </button>
+            </div>
+        </form>
+
+        <script>
+            var xA = document.querySelector('#x-a');
+            var xOP = document.querySelector('#x-op');
+            var xB = document.querySelector('#x-b');
+            var xResult = document.querySelector('#x-result');
+
+            document.querySelector('#x-add-btn').onclick = function () {
+                if (xA.value == '' || xB.value == '') {
+                    alert(`값을 입력하세요`);
+                    return;
+                }
+                if (xOP.value == '') {
+                    alert(`연산자를 선택하세요`);
+                    return;
+                }
+                fetch(`/calc?op=${encodeURIComponent(xOP.value)}&a=${xA.value}&b=${xB.value}`)
+                    .then(function (res) {
+                        return res.text();
+                    })
+                    .then(function (text) {
+                        xResult.value = text;
+                    });
+            };
+
+            document.querySelector('#x-cancle-btn').onclick = function () {
+                location.href = 'index.html';
+            };
+        </script>
+    </body>
+</html>

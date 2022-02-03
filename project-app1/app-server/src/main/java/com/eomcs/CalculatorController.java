@@ -12,16 +12,16 @@ public class CalculatorController {
 
     switch (op) {
       case "+": 
-        response = String.format("명준호 노트북 사라: %f + %f = %.1f", a, b , a+b);
+        response = String.format("명준호 노트북 사라: %.1f + %.1f = %.2f", a, b , a+b);
         break;
       case "-": 
-        response = String.format("명준호 노트북 사라: %f - %f = %.1f",a,b, a - b);
+        response = String.format("명준호 노트북 사라: %.1f - %.1f = %.2f",a,b, a - b);
         break;
       case "/":
-        response = String.format("명준호 노트북 사라: %f / %f = %.1f",a,b, a / b);
+        response = String.format("명준호 노트북 사라: %.1f / %.1f = %.2f",a,b, a / b);
         break;
       case "*":
-        response = String.format("명준호 노트북 사라: %f * %f = %.1f",a,b, a * b);
+        response = String.format("명준호 노트북 사라: %.1f * %.1f = %.2f",a,b, a * b);
         break;
       default: 
         response = "명준호 노트북 사라: 지원하지 않는 연산자입니다.";
