@@ -29,7 +29,7 @@ public class Client0130 {
 
       // 서버에서 보낸 int 값을 읽는다.
       System.out.println("서버의 응답을 기다리고 있음!");
-      int value = in.readInt();
+      int value = in.readInt(); // 수신된 데이터가 메모리에 저장도리 때까지 기다린다. 그래서 블로킹한다.
       System.out.println(value);
 
     } catch (Exception e) {
