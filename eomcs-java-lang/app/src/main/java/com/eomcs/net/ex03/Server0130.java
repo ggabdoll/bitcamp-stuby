@@ -22,7 +22,7 @@ public class Server0130 {
 
         System.out.println("클라이언트가 보낸 int 값을 기다리고 있음!");
 
-        int value = in.readInt();
+        int value = in.readInt(); //랜카드에서 있는 메모리에서 수신된 4바이트를 읽을 때 까지 기다린다.
         System.out.println(value);
 
 
