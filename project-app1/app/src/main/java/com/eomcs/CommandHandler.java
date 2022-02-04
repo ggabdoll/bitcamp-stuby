@@ -38,4 +38,13 @@ public class CommandHandler {
     }
   }
 
+  void divide(Command command) {
+    if (command.getParamSize() != 2) {
+      System.out.println("세상에,,, 명령어 입력 형식이 옳지 않습니다.");
+    } else {
+      int v1 = command.getInt(0);
+      int v2 = command.getInt(1);
+      System.out.printf("%d / %d = %d\n",v1, v2, (v1 / v2));
+    }
+  }
 }

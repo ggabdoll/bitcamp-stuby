@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Command {
 
   String name;
-  ArrayList params = new ArrayList();
+  ArrayList params = new ArrayList<>();
 
   public Command(String name, String[] values) {
     this.name = name;
