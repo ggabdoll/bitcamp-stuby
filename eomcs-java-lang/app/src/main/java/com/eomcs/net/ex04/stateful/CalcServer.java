@@ -27,6 +27,7 @@ public class CalcServer {
     try (DataInputStream in = new DataInputStream(socket.getInputStream());
         PrintStream out = new PrintStream(socket.getOutputStream());) {
 
+      //while 문에 라벨를 붙이면 해당하는 while문에 명령을 걸 수 있다.
       loop: while (true) {
         int a = in.readInt();
         String op = in.readUTF();
