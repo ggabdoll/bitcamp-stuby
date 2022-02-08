@@ -10,11 +10,6 @@ public interface BoardDao {
 
   int countAll();
 
-  Object[] findAll();
-
-  void insert(Board board) throws Exception;
-
-  Board findByNo(int no);
 
   int update(int no, Board board) throws Exception;
 
