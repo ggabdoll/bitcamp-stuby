@@ -14,7 +14,7 @@ public class Exam0212 {
     list1 = new ArrayList<>();
     list1 = new ArrayList<Object>();
 
-    // ArrayList<Object> 로 만든 객체는 다음과 같이 Object의 모든 객체를 담을 수 있다.
+    // 메서드를 호출할 때는 레퍼런스에 지정된 제네렉 타입으로 문법을 검사한다.
     list1.add(new String()); 
     list1.add(new java.util.Date());
     list1.add(new Integer(100));
