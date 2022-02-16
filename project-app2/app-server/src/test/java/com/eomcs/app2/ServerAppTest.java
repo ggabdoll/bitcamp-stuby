@@ -5,8 +5,7 @@ package com.eomcs.app2;
 
 import org.junit.Test;
 
-public class AppTest {
+public class ServerAppTest {
   @Test public void appHasAGreeting() {
-
   }
 }
