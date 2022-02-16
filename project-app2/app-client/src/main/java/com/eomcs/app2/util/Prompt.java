@@ -3,7 +3,6 @@ package com.eomcs.app2.util;
 import java.util.Scanner;
 
 public class Prompt {
-
   static Scanner keyScan = new Scanner(System.in);
 
   public static String promptString(String titleFormat, Object... args) {
