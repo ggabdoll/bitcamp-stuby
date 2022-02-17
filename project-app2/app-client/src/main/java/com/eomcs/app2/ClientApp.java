@@ -3,7 +3,7 @@ package com.eomcs.app2;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import com.eomcs.app2.handler.RequestHandler;
+import com.eomcs.app2.handler.ScoreHandler;
 import com.eomcs.app2.util.Prompt;
 
 public class ClientApp {
@@ -19,7 +19,7 @@ public class ClientApp {
 
       System.out.println("서버와 연결되었음!");
 
-      RequestHandler scoreHandler = new RequestHandler(in, out);
+      ScoreHandler scoreHandler = new ScoreHandler(in, out);
 
       while (true) {
         printMenu();

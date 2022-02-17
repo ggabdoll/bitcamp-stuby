@@ -5,12 +5,12 @@ import java.io.ObjectOutputStream;
 import com.eomcs.app2.util.Prompt;
 import com.eomcs.app2.vo.Score;
 
-public class RequestHandler {
+public class ScoreHandler {
 
   ObjectInputStream in;
   ObjectOutputStream out;
 
-  public RequestHandler(ObjectInputStream in, ObjectOutputStream out) {
+  public ScoreHandler(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;
     this.out = out;
   }
