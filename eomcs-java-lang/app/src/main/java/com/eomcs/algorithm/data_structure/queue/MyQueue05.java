@@ -16,6 +16,7 @@ public class MyQueue05 extends MyLinkedList {
     return add(e);
   }
 
+  //지우기 
   public Object poll() {
     if (size() == 0) {
       return null;
