@@ -16,5 +16,14 @@ public interface BoardDao {
   int delete(int no) throws Exception;
 
   void increaseViewCount(int no) throws Exception;
+
+
+  Object[] findAll();
+
+
+  void insert(Board board) throws Exception;
+
+
+  Board findByNo(int no);
 }
 
