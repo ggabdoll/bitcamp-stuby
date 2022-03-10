@@ -71,7 +71,7 @@
         <table id="x-board-table">
             <thead>
                 <tr>
-                    <th class="idx"></th>
+                    <th class="idx">NO</th>
                     <th class="title">TITLE</th>
                     <th class="view">VIEWS</th>
                     <th class="date">Date</th>
@@ -90,16 +90,14 @@
                 })
                 .then(function (boardList) {
                     console.log(boardList);
-                    for (var i = 0; i < boardList.length; i++) {
+                    for (var board of boardList) {
                         var tr = document.createElement('tr');
-                        tr.setAttribute('data-no', i);
-                        tr.classList.add('tBodyTr');
-                        tr.innerHTML = `<td class='idx'><span>${i + 1}</span></td>
-                        <td class='board-title'><a href='view.html?index=${i}' style="text-decoration : none; color : black">${
-                            boardList[i].title
+                        tr.innerHTML = `<td>${board.no}</td>
+                        <td class='board-title'><a href='view.html?no=${board.no}' style="text-decoration : none; color : black">${
+                            board.title
                         }</a></td>
-                        <td class='view'>${boardList[i].viewCount}</td>
-                        <td>${boardList[i].createDate}</td>`;
+                        <td class='view'>${board.viewCount}</td>
+                        <td>${board.createDate}</td>`;
                         tbody.appendChild(tr);
                     }
                 });

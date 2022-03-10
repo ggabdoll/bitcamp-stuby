@@ -18,29 +18,29 @@ public class BoardController {
   BoardDao boardDao;
 
   @RequestMapping("/board/list")
-  public List<Board> list() throws Exception{
+  public List<Board> list(){
     return boardDao.findAll(); 
   }
 
   @RequestMapping("/board/add")
-  public Object add(Board board) throws Exception {
+  public Object add(Board board) {
     return boardDao.insert(board);
   }
 
   @RequestMapping("/board/get")
-  public Object get(int no) throws Exception{
+  public Object get(int no) {
     boardDao.updateViewCount(no);
     return boardDao.findByNo(no);   
   };
 
   @RequestMapping("/board/update")
-  public Object update(Board board) throws Exception {
+  public Object update(Board board) {
 
     return boardDao.update(board);
   }
 
   @RequestMapping("/board/delete")
-  public int delete(int index) throws Exception {
-    return boardDao.delete(index);
+  public int delete(int no) {
+    return boardDao.delete(no);
   }
 }

@@ -18,12 +18,21 @@ public class JdbcBoardDao implements BoardDao {
 
   @Override
   public int countAll() {
-    // TODO Auto-generated method stub
-    return 0;
+    try (Connection con = DriverManager.getConnection( //
+        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
+        PreparedStatement stmt = con.prepareStatement( //
+            "select count(*) from ml_board");
+        ResultSet rs = stmt.executeQuery()) {
+
+      rs.next();
+      return rs.getInt(1);
+    } catch(Exception e) {
+      throw new DaoException(e);
+    }
   }
 
   @Override
-  public int update(Board board) throws Exception {
+  public int update(Board board){
     try (Connection con = DriverManager.getConnection( //
         "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
         PreparedStatement stmt = con.prepareStatement( //
@@ -35,17 +44,27 @@ public class JdbcBoardDao implements BoardDao {
       stmt.executeUpdate();
 
       return stmt.executeUpdate();
+    } catch (Exception e) {
+      throw new DaoException(e);
     }
   }
 
   @Override
-  public int delete(int no) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
+  public int delete(int no) {
+    try (Connection con = DriverManager.getConnection( //
+        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
+        PreparedStatement stmt = con.prepareStatement( //
+            "delete from ml_board where board_no=?")) {
+
+      stmt.setInt(1, no);
+      return stmt.executeUpdate();
+    } catch (Exception e) {
+      throw new DaoException(e);
+    }
   }
 
   @Override
-  public int updateViewCount(int no) throws Exception {
+  public int updateViewCount(int no)  {
     try (Connection con = DriverManager.getConnection( //
         "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
         PreparedStatement stmt = con.prepareStatement( //
@@ -54,12 +73,14 @@ public class JdbcBoardDao implements BoardDao {
       stmt.setInt(1, no);
 
       return stmt.executeUpdate();
+    }catch (Exception e) {
+      throw new DaoException(e);
     }
 
   }
 
   @Override
-  public List<Board> findAll() throws Exception{
+  public List<Board> findAll() {
     try (Connection con = DriverManager.getConnection( //
         "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
         PreparedStatement stmt = con.prepareStatement( //
@@ -76,11 +97,13 @@ public class JdbcBoardDao implements BoardDao {
         arr.add(board);
       }
       return arr;
+    } catch (Exception e) {
+      throw new DaoException(e);
     }
   }
 
   @Override
-  public int insert(Board board) throws Exception {
+  public int insert(Board board) {
     try (Connection con = DriverManager.getConnection( //
         "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
         PreparedStatement stmt =
@@ -90,12 +113,14 @@ public class JdbcBoardDao implements BoardDao {
       stmt.setString(2, board.getContent());
 
       return stmt.executeUpdate();
+    }catch (Exception e) {
+      throw new DaoException(e);
     }
 
   }
 
   @Override
-  public Board findByNo(int no) throws Exception{
+  public Board findByNo(int no) {
     try (Connection con = DriverManager.getConnection( //
         "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
         PreparedStatement stmt = con.prepareStatement( //
@@ -115,6 +140,8 @@ public class JdbcBoardDao implements BoardDao {
         board.setViewCount(rs.getInt("view_count"));
         return board;
       }
+    }catch (Exception e) {
+      throw new DaoException(e);
     }
   }
 }

@@ -71,9 +71,9 @@
             }
 
             var params = new URLSearchParams(arr[1]);
-            var index = params.get('index');
+            var no = params.get('no');
 
-            if (index == null) {
+            if (no == null) {
                 alert('인덱스 없는데?');
                 throw 'Pram Error!!';
             }
@@ -81,7 +81,7 @@
             var xTitle = document.querySelector('#x-title');
             var xContent = document.querySelector('textarea');
 
-            fetch(`/board/get?index=${index}`)
+            fetch(`/board/get?no=${no}`)
                 .then(function (res) {
                     return res.json();
                 })
@@ -99,10 +99,10 @@
                     return;
                 }
                 fetch(
-                    `/board/update?index=${index}&title=${xTitle.value}&content=${xContent.value}`
+                    `/board/update?no=${no}&title=${xTitle.value}&content=${xContent.value}`
                 )
                     .then(function (res) {
-                        return res.text();
+                        return res.json();
                     })
                     .then(function (text) {
                         console.log(text);
@@ -113,7 +113,7 @@
                 location.href = 'index.html';
             };
             document.querySelector('#x-delete-btn').onclick = function () {
-                fetch(`/board/delete?index=${index}`)
+                fetch(`/board/delete?no=${no}`)
                     .then(function (res) {
                         return res.json();
                     })

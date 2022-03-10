@@ -51,6 +51,7 @@
         <form>
             <div class="boarderBox">
                 <div>
+                <input id="x-no type="text" placeholder="NO" readonly/><br />
                     <input id="x-title" type="text" placeholder="Title" /><br />
                     <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea
                     ><br />
@@ -86,7 +87,7 @@
 
             //let dayTime = month + day;
             //let formatDate = day;
-
+            var xNo = document.querySelector('#x-no');
             var xTitle = document.querySelector('#x-title');
             var xContent = document.querySelector('textarea');
             var xDate = document.querySelector('#x-date');
