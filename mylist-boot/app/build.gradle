@@ -20,6 +20,8 @@ repositories {
 }
 
 dependencies {
+
+//implementation 'org.springframework:spring-jdbc:5.3.13'
 implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.3'
 implementation 'org.springframework.boot:spring-boot-starter-jdbc'
   implementation 'org.springframework.boot:spring-boot-starter-web'
