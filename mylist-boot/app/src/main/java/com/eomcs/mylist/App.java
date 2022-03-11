@@ -1,5 +1,6 @@
 package com.eomcs.mylist;
 
+import javax.sql.DataSource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +16,9 @@ public class App {
   public static void main(String[] args) {
     SpringApplication.run(App.class, args);
   }
+
+  // DB커넥션 풀 준비 
+  public static DataSource dataSource;
 
   //@Bean
   public CommandLineRunner commandLineRunner(ApplicationContext beanContainer) {
