@@ -1,8 +1,5 @@
 package com.eomcs.mylist.dao.mariadb;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
@@ -10,7 +7,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.eomcs.mylist.dao.BoardDao;
-import com.eomcs.mylist.dao.DaoException;
 import com.eomcs.mylist.domain.Board;
 
 // @Repository
@@ -28,60 +24,30 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int countAll() {
-    try (Connection con = dataSource.getConnection();
-        // DataSource에서 얻은 커넥션 객체는 close() 할때 연경을 끊는 것이 아니라 DataSource에 반납된다.
-        PreparedStatement stmt = con.prepareStatement( //
-            "select count(*) from ml_board");
-        ResultSet rs = stmt.executeQuery()) {
-
-      rs.next();
-      return rs.getInt(1);
-    } catch(Exception e) {
-      throw new DaoException(e);
+    try(SqlSession sqlSession =  sqlSessionFactory.openSession();){ // SQL을 실행 시켜주는 도구를 준비
+      return sqlSession.selectOne("BoardDao.sql5");
     }
+
   }
 
   @Override
   public int update(Board board){
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement( //
-            "update ml_board set title = ?, content = ? where board_no = ?")) {
-
-      stmt.setString(1, board.getTitle());
-      stmt.setString(2, board.getContent());
-      stmt.setInt(3, board.getNo());
-      stmt.executeUpdate();
-
-      return stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DaoException(e);
+    try(SqlSession sqlSession =  sqlSessionFactory.openSession();){ // SQL을 실행 시켜주는 도구를 준비
+      return sqlSession.update("BoardDao.sql4", board);
     }
   }
 
   @Override
   public int delete(int no) {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement( //
-            "delete from ml_board where board_no=?")) {
-
-      stmt.setInt(1, no);
-      return stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new DaoException(e);
+    try(SqlSession sqlSession =  sqlSessionFactory.openSession();){ // SQL을 실행 시켜주는 도구를 준비
+      return sqlSession.insert("BoardDao.sql6", no);
     }
   }
 
   @Override
   public int updateViewCount(int no)  {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement( //
-            "update ml_board set view_count=view_count + 1 where board_no = ?")) {
-
-      stmt.setInt(1, no);
-
-      return stmt.executeUpdate();
-    }catch (Exception e) {
-      throw new DaoException(e);
+    try(SqlSession sqlSession =  sqlSessionFactory.openSession();){ // SQL을 실행 시켜주는 도구를 준비
+      return sqlSession.update("BoardDao.sql7", no);
     }
 
   }
@@ -95,44 +61,20 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int insert(Board board) {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt =
-            con.prepareStatement("insert into ml_board(title,content) values(?,?)");) {
-
-      stmt.setString(1, board.getTitle());
-      stmt.setString(2, board.getContent());
-
-      return stmt.executeUpdate();
-    }catch (Exception e) {
-      throw new DaoException(e);
+    try(SqlSession sqlSession =  sqlSessionFactory.openSession();){ // SQL을 실행 시켜주는 도구를 준비
+      return sqlSession.insert("BoardDao.sql3", board);
     }
-
   }
 
   @Override
-  public Board findByNo(int no) {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement( //
-            "select * from ml_board where board_no = ?")) {
-
-      stmt.setInt(1, no);
-
-      try (ResultSet rs = stmt.executeQuery()) {
-        if (!rs.next())
-          return null;
-
-        Board board = new Board();
-        board.setNo(rs.getInt("board_no"));
-        board.setTitle(rs.getString("title"));
-        board.setContent(rs.getString("content"));
-        board.setCreatedDate(rs.getDate("created_date"));
-        board.setViewCount(rs.getInt("view_count"));
-        return board;
-      }
-    }catch (Exception e) {
-      throw new DaoException(e);
+  public Board findByNo(int no){
+    try(SqlSession sqlSession =  sqlSessionFactory.openSession();){ // SQL을 실행 시켜주는 도구를 준비
+      return sqlSession.selectOne("BoardDao.sql2",no);
     }
+
+
   }
+
 }
 
 

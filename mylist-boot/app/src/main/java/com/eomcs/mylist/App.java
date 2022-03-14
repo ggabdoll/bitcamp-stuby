@@ -47,6 +47,7 @@ public class App {
   }
 
   // Mybatis 객체 준비
+  @Bean
   public SqlSessionFactory sqlSessionFactory(DataSource dataSoruce) throws Exception{
     SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
