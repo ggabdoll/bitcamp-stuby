@@ -29,16 +29,16 @@
         </table>
 
         <input type="text" id="x-title-input" />
-
+        <script src="./myQuery.js"></script>
         <script type="text/javascript">
             'use strict';
 
-            var titleInput = document.querySelector('#x-title-input');
+            var titleInput = $('#x-title-input');
             titleInput.style['display'] = 'none';
 
-            var tbody = document.querySelector('#x-todo-table tbody');
+            var tbody = $('#x-todo-table tbody');
 
-            document.querySelector('#x-todo-input').onkeyup = function (e) {
+            $('#x-todo-input').onkeyup = function (e) {
                 if (e.keyCode == 27) {
                     e.target.value = '';
                 } else if (e.keyCode == 13) {
@@ -129,13 +129,13 @@
                     // 다른 항목을 편집하기 위해 이동하기 전에 편집 전의 상태로 되돌린다.
                     titleInput.parentNode.querySelector('span').style['display'] = '';
                 }
-                var titleTd = document.querySelector(`tr[data-no="${no}"] > td.todo-title`);
-                var titleSpan = titleTd.querySelector('span');
-                titleSpan.style['display'] = 'none';
+                var titleTd = $(`tr[data-no="${no}"] > td.todo-title`);
+                var titleSpan = titleTd.find('span');
+                titleSpan.css('display', 'none');
                 titleInput.value = titleSpan.innerHTML;
                 titleInput.setAttribute('data-no', no);
                 titleTd.appendChild(titleInput);
-                titleInput.style['display'] = '';
+                titleInput.css('display', '');
 
                 titleTd;
             }
