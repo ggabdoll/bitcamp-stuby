@@ -1,37 +1,46 @@
 package com.eomcs.mylist.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.eomcs.mylist.dao.ContactDao;
 import com.eomcs.mylist.domain.Contact;
 import com.eomcs.mylist.domain.ContactTel;
+import com.eomcs.mylist.service.ContactService;
 
 @RestController 
 public class ContactController {
 
-  @Autowired
-  ContactDao contactDao;
+  //@Autowired
+  //ContactServiceNonTransaction service;
 
   @Autowired
-  TransactionTemplate trasactionTemlplate;
+  ContactService service;
 
   @RequestMapping("/contact/list")
   public Object list() {
-    List<Contact> contacts = contactDao.findAll();
-    for (Contact contact : contacts) {
-      contact.setTels(contactDao.findTelByContactNo(contact.getNo()));
-    }
-    return contacts;
+    return service.list();
   }
 
   @RequestMapping("/contact/add")
   public Object add(Contact contact, String[] tel) throws Exception {
 
+
+    // 요청 파라미터 분석 및 가공
+    ArrayList<ContactTel> telList = new ArrayList<>();
+    for (int i = 0; i < tel.length; i++) {
+      String[] value = tel[i].split("_");
+      if (value[1].length() == 0) {
+        continue;
+      }
+      ContactTel contactTel = new ContactTel(Integer.parseInt(value[0]), value[1]);
+      telList.add(contactTel);
+    }
+    contact.setTels(telList);
+
+    //서비스 객체 실행
+    return service.add(contact);
+    /*
 
     //1) 트랙잭션으로 묶어서 실행할 작업을 정의
     // => 스프링 프레임우크에서 정한 규칙에 따라 정의해야 한다.
@@ -53,38 +62,41 @@ public class ContactController {
 
     //2) 트랜잭션 작업을 수행한다.
     return trasactionTemlplate.execute(new ContactAddTransaction());
+     */
   }
 
   @RequestMapping("/contact/get")
   public Object get(int no) {
-    Contact contact = contactDao.findByNo(no);
+    Contact contact = service.get(no);
     if (contact == null) {
-      return "";
+      return ""; //컨트롤러는 서비스 객체의 리턴 값에 따라 응답 데이터를 적절히 가공하여 리턴한다.
     }
-    contact.setTels(contactDao.findTelByContactNo(no));
     return contact;
   }
 
   @RequestMapping("/contact/update")
   public Object update(Contact contact, String[] tel) throws Exception {
-    int count = contactDao.update(contact);
-    if (count > 0) {
-      contactDao.deleteTelByContactNo(contact.getNo());
-      for (int i = 0; i < tel.length; i++) {
-        String[] value = tel[i].split("_");
-        if (value[1].length() == 0) {
-          continue;
-        }
-        contactDao.insertTel(new ContactTel(contact.getNo(), Integer.parseInt(value[0]), value[1]));
+    // 요청 파라미터 분석 및 가공
+    ArrayList<ContactTel> telList = new ArrayList<>();
+    for (int i = 0; i < tel.length; i++) {
+      String[] value = tel[i].split("_");
+      if (value[1].length() == 0) {
+        continue;
       }
+      // 연락처 변경의 경우 이미 연락처 번호를 알기 때문에 
+      // 전화번호를 객체에 담을 때 연락처 번호도 함께 저장한다.
+      ContactTel contactTel = new ContactTel(contact.getNo(), Integer.parseInt(value[0]), value[1]);
+      telList.add(contactTel);
     }
-    return count;
+    contact.setTels(telList);
+
+    //서비스 객체 실행
+    return service.update(contact);
   }
 
   @RequestMapping("/contact/delete")
   public Object delete(int no) throws Exception {
-    contactDao.deleteTelByContactNo(no);
-    return contactDao.delete(no);
+    return service.delete(no);
   }
 
 }
