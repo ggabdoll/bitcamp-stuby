@@ -14,40 +14,32 @@ public class TodoController {
 
   @RequestMapping("/todo/list")
   public Object list() {
-    return todoDao.findAll();  
+    return todoDao.findAll(); 
   }
 
   @RequestMapping("/todo/add")
-  public Object add(Todo todo) throws Exception{
+  public Object add(Todo todo) throws Exception {
     todoDao.insert(todo);
     return todoDao.countAll();
   }
 
-  @RequestMapping("/todo/get")
-  public Object get(int index) {
-    return todoDao.findByNo(index);
-  }
-
   @RequestMapping("/todo/update")
-  public Object update(int index, Todo todo) throws Exception{
-    Todo old = todoDao.findByNo(index);
-    if(old == null) {
-      return 0;
-    }
-    todo.setDone(old.isDone());
-    return todoDao.update(index, todo);
-  }
-
-
-  @RequestMapping("/todo/delete")
-  public Object delete(int index) throws Exception{
-    return todoDao.delete(index);
+  public Object update(Todo todo) throws Exception {
+    return todoDao.update(todo);
   }
 
   @RequestMapping("/todo/check")
-  public Object check(int index, boolean done) throws Exception{
-    return todoDao.updateDone(index, done);
+  public Object check(int no, boolean done) throws Exception {
+    return todoDao.updateDone(no, done);
   }
 
+  @RequestMapping("/todo/delete")
+  public Object delete(int no) throws Exception {
+    return todoDao.delete(no);
+  }
 
 }
+
+
+
+
