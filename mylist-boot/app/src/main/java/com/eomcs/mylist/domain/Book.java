@@ -10,13 +10,13 @@ public class Book {
   int price;
   java.sql.Date readDate;
   String feed;
-
+  String photo;
   @Override
   public String toString() {
     return "Book [no=" + no + ", title=" + title + ", author=" + author + ", press=" + press
-        + ", page=" + page + ", price=" + price + ", readDate=" + readDate + ", feed=" + feed + "]";
+        + ", page=" + page + ", price=" + price + ", readDate=" + readDate + ", feed=" + feed
+        + ", photo=" + photo + "]";
   }
-
   public int getNo() {
     return no;
   }
@@ -65,7 +65,11 @@ public class Book {
   public void setFeed(String feed) {
     this.feed = feed;
   }
-
-
+  public String getPhoto() {
+    return photo;
+  }
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
 
 }

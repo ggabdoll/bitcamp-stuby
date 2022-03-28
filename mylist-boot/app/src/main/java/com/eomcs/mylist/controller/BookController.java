@@ -3,6 +3,7 @@ package com.eomcs.mylist.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import com.eomcs.mylist.dao.BookDao;
 import com.eomcs.mylist.domain.Book;
 
@@ -18,7 +19,7 @@ public class BookController {
   }
 
   @RequestMapping("/book/add")
-  public Object add(Book book){
+  public Object add(Book book, MultipartFile file){
     bookDao.insert(book);
     return bookDao.countAll();
   }
