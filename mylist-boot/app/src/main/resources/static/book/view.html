@@ -1,177 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>VIEW</title>
-    </head>
-    <body>
-        <style>
-            body {
-                padding: 20px;
-                align-items: center;
-                justify-content: center;
-            }
-            h1 {
-                align-self: center;
-            }
-            .container {
-                display: flex;
-                width: 50vw;
-            }
-            input {
-                margin-left: 3vw;
-                margin-bottom: 10px;
-                border-left-width: 0;
-                border-right-width: 0;
-                border-top-width: 0;
-                border-bottom: 0.3 solid black;
-                font-size: 20px;
-                text-align: center;
-                outline-style: none;
-            }
-            button {
-                width: 80px;
-                height: 30px;
-                border-radius: 5px;
-                margin-left: 80px;
-            }
-            .boarderBox {
-                display: flex;
-                width: 30vw;
-                height: 40vh;
-                border: 1px solid black;
-                border-radius: 10px;
-                justify-content: center;
-                padding: 10px;
-            }
-            textarea {
-                border: 0;
-                outline-style: none;
-            }
-            #x-page {
-                font-size: 25px;
-                margin-left: 5px;
-            }
-        </style>
-        <h1>MORE</h1>
-        <div class="container">
-            <div class="boarderBox">
-                <div>
-                    <input id="x-title" type="text" placeholder="Title" /><br />
-                    <textarea id="x-content" cols="50" rows="5" placeholder="Contents"></textarea
-                    ><br />
-                </div>
-            </div>
-            <div class="input-box">
-                <input type="date" id="x-date" placeholder="ReadDate" />
-                <input id="x-author" type="text" placeholder="Author" /><br />
-                <input id="x-press" type="text" placeholder="Press" /><br />
-                <input id="x-read-page" type="number" placeholder="ReadPage" /><span
-                    id="x-page"
-                ></span
-                ><br />
-                <input id="x-price" type="number" placeholder="Price" /><br />
-            </div>
-        </div>
-        <button id="x-update-btn" type="button" style="margin: 20px; background-color: #daddfc">
-            UPDATE
-        </button>
-        <button id="x-delete-btn" type="button" style="margin: 20px; background-color: #ff5151">
-            DELETE
-        </button>
-        <button id="x-cancle-btn" type="button" style="margin: 20px">CANCLE</button>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>독서록</title>
+</head>
+<body>
 
-        <script>
-            var arr = location.href.split('?');
+<h1>독서록 상세</h1>
 
-            if (arr.length == 1) {
-                alert('요청이 옳바르지 않습니다.');
-                throw 'URL 형식 오류!';
-            }
+<form>
+제목*: <input id="x-title" type="text"><br>
+저자*: <input id="x-author" type="text"><br>
+출판사*: <input id="x-press" type="text"><br>
+페이지: <input id="x-page" type="number" value="0"><br>
+가격: <input id="x-price" type="number" value="0"><br>
+독서일: <input id="x-readDate" type="date"><br>
+소감*: <textarea id="x-feed" cols="60" rows="10"></textarea><br>
+별표(*) 항목은 필수 입력입니다.<br>
+<button id="x-update-btn" type="button">변경</button>
+<button id="x-delete-btn" type="button">삭제</button>
+<button id="x-cancel-btn" type="button">취소</button>
+</form>
 
-            var params = new URLSearchParams(arr[1]);
-            var index = params.get('index');
+<script type="text/javascript">
 
-            if (index == null) {
-                alert('인덱스 없는데?');
-                throw 'Pram Error!!';
-            }
+  // 1) URL에서 쿼리스트링(query string)을 추출한다.
+  var arr = location.href.split("?");
+  console.log(arr);
 
-            var xTitle = document.querySelector('#x-title');
-            var xContent = document.querySelector('textarea');
-            var xDate = document.querySelector('#x-date');
-            var xAuthor = document.querySelector('#x-author');
-            var xPress = document.querySelector('#x-press');
-            var xPrice = document.querySelector('#x-price');
-            var xPage = document.querySelector('#x-page');
-            var xReadPage = document.querySelector('#x-read-page');
-            var AllPage = '';
-            fetch(`/book/get?index=${index}`)
-                .then(function (res) {
-                    return res.json();
-                })
-                .then(function (data) {
-                    if (data.feed == undefined) {
-                        xContent.value = '';
-                    }
-                    xTitle.value = data.title;
-                    xContent.value = data.feed;
-                    xDate.value = data.readDate;
-                    xAuthor.value = data.author;
-                    xPress.value = data.press;
-                    xPrice.value = data.price;
-                    xPage.innerHTML = `  / ${data.page}`;
-                    xReadPage.value = data.readPage;
-                    AllPage = data.page;
-                });
+  if (arr.length == 1) {
+    alert("요청 형식이 옳바르지 않습니다.")
+    throw "URL 형식 오류!";
+  }
 
-            document.querySelector('#x-update-btn').onclick = function () {
-                var bookInfo = {
-                    title: xTitle.value,
-                    feed: xContent.value,
-                    readDate: xDate.value,
-                    author: xAuthor.value,
-                    press: xPress.value,
-                    price: xPrice.value,
-                    page: AllPage,
-                    readPage: xReadPage.value,
-                };
-                if (xTitle.value == '') {
-                    alert(
-                        `🙏'제목'을 작성하던가'Cancle'버튼을 누르던가🙏\n            🙏하나만 하세요🙏`
-                    );
-                    return;
-                }
-                fetch(`/book/update?index=${index}`, {
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
-                    },
-                    method: 'POST',
-                    body: JSON.stringify(bookInfo),
-                })
-                    .then(function (res) {
-                        return res.json();
-                    })
-                    .then(function (update) {
-                        console.log(update);
-                        location.href = 'index.html';
-                    });
-            };
-            document.querySelector('#x-cancle-btn').onclick = function () {
-                location.href = 'index.html';
-            };
-            document.querySelector('#x-delete-btn').onclick = function () {
-                fetch(`/book/delete?index=${index}`)
-                    .then(function (res) {
-                        return res.json();
-                    })
-                    .then(function (result) {
-                        console.log(result);
-                        location.href = 'index.html';
-                    });
-            };
-        </script>
-    </body>
+  var qs = arr[1];
+  console.log(qs);
+
+  // 2) 쿼리 스트링에서 email 값을 추출한다.
+  var params = new URLSearchParams(qs);
+  var no = params.get("no");
+
+  if (no == null) {
+    alert("독서록 번호가 없습니다.");
+    throw "파라미터 오류!";
+  }
+  console.log(no);
+
+  var xTitle = document.querySelector("#x-title");
+  var xAuthor = document.querySelector("#x-author");
+  var xPress = document.querySelector("#x-press");
+  var xPage = document.querySelector("#x-page");
+  var xPrice = document.querySelector("#x-price");
+  var xReadDate = document.querySelector("#x-readDate");
+  var xFeed = document.querySelector("#x-feed");
+
+  // 3) 서버에서 데이터 가져오기
+  fetch(`/book/get?no=${no}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(book) {
+      // 4) 연락처 상세 정보를 화면에 출력한다.
+      xTitle.value = book.title;
+      xAuthor.value = book.author;
+      xPress.value = book.press;
+      xPage.value = book.page;
+      xPrice.value = book.price;
+      xReadDate.value = book.readDate;
+      xFeed.value = book.feed;
+    });
+
+  document.querySelector("#x-update-btn").onclick = function() {
+    if (xTitle.value == "" || 
+        xAuthor.value == "" ||
+        xPress.value == "" ||
+        xFeed.value == "") {
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return;
+    }
+    
+    var qs = `no=${no}&title=${xTitle.value}&author=${xAuthor.value}&press=${xPress.value}`;
+    qs += `&page=${xPage.value}&price=${xPrice.value}&feed=${xFeed.value}`;
+    
+    // 독서일을 입력했을 때만 서버에 보낸다.
+    if (xReadDate.value != "") {
+      qs += `&readDate=${xReadDate.value}`;
+    }
+    
+    fetch(`/book/update?${qs}`)
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        console.log(text);
+        location.href = "index.html";
+      });
+  };
+
+  document.querySelector("#x-cancel-btn").onclick = function() {
+    window.location.href = "index.html";
+  };
+
+  document.querySelector("#x-delete-btn").onclick = function() {
+    fetch(`/book/delete?no=${no}`)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(result) {
+        console.log(result);
+        location.href = "index.html";
+      });
+  };
+
+</script>
+
+</body>
 </html>

@@ -1,86 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ADD</title>
-    </head>
-    <body>
-        <style>
-            body {
-                padding: 20px;
-            }
-            input {
-                margin-bottom: 8px;
-                border-left-width: 0;
-                border-right-width: 0;
-                border-top-width: 0;
-                border-bottom: 0.3 solid black;
-            }
-            button {
-                width: 80px;
-                height: 30px;
-                border-radius: 5px;
-            }
-        </style>
-        <h1>New ORNAMENT</h1>
-        <form>
-            <input id="x-title" type="text" placeholder="🙏Title" /><br />
-            <input id="x-author" type="text" placeholder="Author" /><br />
-            <input id="x-press" type="text" placeholder="Press" /><br />
-            <input id="x-page" type="number" placeholder="Page" /><br />
-            <input id="x-price" type="number" placeholder="Price" /><br />
-            <div>🙏는 필수 사항 입니다.</div>
-            <button
-                id="x-add-btn"
-                type="button"
-                style="margin: 20px; background-color: #daddfc; border: 0"
-                onclick="addBook()"
-            >
-                ADD
-            </button>
-            <button id="x-cancle-btn" type="button" style="margin: 20px; border: 0">CANCLE</button>
-        </form>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>독서록</title>
+</head>
+<body>
 
-        <script>
-            var xTitle = document.querySelector('#x-title');
-            var xAuthor = document.querySelector('#x-author');
-            var xPress = document.querySelector('#x-press');
-            var xPrice = document.querySelector('#x-price');
-            var xPage = document.querySelector('#x-page');
-            //console.log(xName, xMenu, xTel, xRating);
+<h1>새 독서록</h1>
 
-            document.querySelector('#x-cancle-btn').onclick = function () {
-                location.href = 'index.html';
-            };
+<form name="form1">
+제목*: <input name="title" type="text"><br>
+저자*: <input name="author" type="text"><br>
+출판사*: <input name="press" type="text"><br>
+사진: <input name="file" type="file"><br>
+페이지: <input name="page" type="number" value="0"><br>
+가격: <input name="price" type="number" value="0"><br>
+독서일: <input name="readDate" type="date"><br>
+소감*: <textarea name="feed" cols="60" rows="10"></textarea><br>
+별표(*) 항목은 필수 입력입니다.<br>
+<button id="x-add-btn" type="button">등록</button>
+<button id="x-cancel-btn" type="button">취소</button>
+</form>
 
-            const addBook = () => {
-                var bookInfo = {
-                    title: xTitle.value,
-                    author: xAuthor.value,
-                    press: xPress.value,
-                    price: xPrice.value,
-                    page: xPage.value,
-                };
-                if (xTitle.value == '') {
-                    alert('제발 🙏는 작성해 주세요 제발제발');
-                    return;
-                }
-                fetch('/book/add', {
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
-                    },
-                    method: 'POST',
-                    body: JSON.stringify(bookInfo),
-                })
-                    .then(function (res) {
-                        return res.json();
-                    })
-                    .then(function (info) {
-                        location.href = 'index.html';
-                    });
-            };
-        </script>
-    </body>
+<script type="text/javascript">
+  var xTitle = document.querySelector("input[name=title]");
+  var xAuthor = document.querySelector("input[name=author]");
+  var xPress = document.querySelector("input[name=press]");
+  var xFeed = document.querySelector("textarea");
+  var xReadDate = document.querySelector("input[name=readDate]");
+  
+  document.querySelector("#x-add-btn").onclick = function() {
+    if (xTitle.value == "" || 
+        xAuthor.value == "" ||
+        xPress.value == "" ||
+        xFeed.value == "") {
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return;
+    }
+    
+    var fd = new FormData(document.forms.namedItem("form1"));
+    
+    if (xReadDate.value == "") { // 독서일을 지정하지 않았으면 서버에 보내지 않는다.
+      fd.delete("readDate");
+    }
+    
+    fetch("/book/add", { 
+        method: "POST",
+        body: fd
+      }) 
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        console.log(text);
+        location.href = "index.html";
+      });
+  };
+
+  document.querySelector("#x-cancel-btn").onclick = function() {
+    window.location.href = "index.html";
+  };
+</script>
+
+</body>
 </html>
