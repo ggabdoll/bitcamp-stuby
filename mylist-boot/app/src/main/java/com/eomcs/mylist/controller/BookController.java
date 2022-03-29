@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.eomcs.mylist.domain.Book;
 import com.eomcs.mylist.service.BookService;
 import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 
 @RestController 
 public class BookController {
@@ -102,7 +103,8 @@ public class BookController {
           .body(resource); // 응답 콘텐트를 생성한 후 리턴한다.
 
     } catch (Exception e) {
-      e.printStackTrace();
+      //e.printStackTrace();
+      System.out.println("요청한 파일이 없습니다!");
       return null;
     }
   }
@@ -126,6 +128,7 @@ public class BookController {
       // 썸네일 이미지 파일 생성
       Thumbnails.of(photoFile)
       .size(50, 50)
+      .crop(Positions.CENTER)
       .outputFormat("jpg")
       .toFile(new File("./upload/book/" + "50x50_" + filename));
 
