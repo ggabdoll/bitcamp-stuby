@@ -3,8 +3,7 @@ package com.eomcs.mylist.domain;
 import java.sql.Date;
 import lombok.Data;
 
-
-@Data
+@Data 
 public class Member {
 
   int no;

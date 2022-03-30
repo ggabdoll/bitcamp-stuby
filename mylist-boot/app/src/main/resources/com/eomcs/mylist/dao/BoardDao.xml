@@ -18,6 +18,7 @@
 <result column="content" property="content"/>
 <result column="created_date" property="createdDate"/>
 <result column="view_count" property="viewCount"/>
+<result column="writer" property="writer"/>
 </resultMap>
 
 
@@ -30,7 +31,8 @@
     board_no, 
     title, 
     created_date , 
-    view_count 
+    view_count,
+    writer 
    from 
     ml_board 
    order by 
@@ -47,7 +49,8 @@
     board_no,
     title,
     content,
-    view_count  
+    view_count,
+    writer  
   from 
     ml_board 
   where 
@@ -55,8 +58,8 @@
   </select>
   
   <insert id="insert" parameterType="Board" >
-  insert into ml_board(title,content) 
-  values(#{title},#{content})
+  insert into ml_board(title,content, writer) 
+  values(#{title},#{content},#{writer})
   </insert>
   
   <update id="update" parameterType="Board">
@@ -67,6 +70,8 @@
     content = #{content} 
   where 
     board_no = #{no}
+  and 
+    writer = #{writer}
   </update>
   
   <select id="countAll" resultType="int">
@@ -77,6 +82,7 @@
  <delete id="delete" parameterType="int">
    delete from ml_board 
    where board_no=#{no}
+   and   writer=#{writer}
  </delete>
   
   <update id="updateViewCount" parameterType="int">

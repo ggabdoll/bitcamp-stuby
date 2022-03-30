@@ -1,4 +1,4 @@
-package com.eomcs.mylist.service.impl;
+package com.eomcs.mylist.service.imp;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public class DefaultContactService implements ContactService {
   public int update(Contact contact) {
     int count = contactDao.update(contact);
     if (count > 0) {
-      contactDao.deleteTelByContactNo(contact.getNo()); // 전화번호 변경 전에 기존 전화번호를 모두 삭제한다.
-      contactDao.insertTels(contact.getNo(), contact.getTels()); 
+      //contactDao.deleteTelByContactNo(contact.getNo()); // 전화번호 변경 전에 기존 전화번호를 모두 삭제한다.
+      //contactDao.insertTels(contact.getNo(), contact.getTels()); 
     }
     return count;
   }
