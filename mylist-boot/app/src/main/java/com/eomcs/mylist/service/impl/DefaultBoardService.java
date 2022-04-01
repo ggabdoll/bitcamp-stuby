@@ -1,4 +1,4 @@
-package com.eomcs.mylist.service.imp;
+package com.eomcs.mylist.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

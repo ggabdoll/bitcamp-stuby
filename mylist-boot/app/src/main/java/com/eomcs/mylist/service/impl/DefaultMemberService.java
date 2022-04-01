@@ -1,4 +1,4 @@
-package com.eomcs.mylist.service.imp;
+package com.eomcs.mylist.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,9 @@ public class DefaultMemberService implements MemberService {
     return memberDao.findByEmailAndPassword(email, password);
   }
 
-
+  @Override
+  public Member get(String email) {
+    return memberDao.findByEmail(email);
+  }
 
 }
