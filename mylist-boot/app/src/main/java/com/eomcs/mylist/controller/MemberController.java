@@ -106,6 +106,7 @@ public class MemberController {
       return new ResultMap().setStatus(SUCCESS).setData("새 회원 로그인");
     }
   }
+
 }
 
 
