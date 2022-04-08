@@ -28,6 +28,12 @@ eclipse {
     }
 }
 
+// 웹 애플리케이션 배포 파일(.war)을 만들 때 사용할 기본 파일 이름을 설정한다.
+// 이 이름은 웹 애플리케이션 context root 경로로도 사용된다.
+war {
+    archiveBaseName = "web"
+}
+
 dependencies {
     // Servlet API 라이브러리
     // => 컴파일 할때만 사용하고, 배포할 때는 제외할 라이브러리
