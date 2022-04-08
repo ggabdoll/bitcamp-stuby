@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import com.eomcs.mylist.controller.ResultMap;
@@ -11,6 +13,8 @@ import com.eomcs.mylist.domain.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AuthInterceptor implements HandlerInterceptor{
+
+  private static final Logger log = LogManager.getLogger(AuthInterceptor.class);
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
