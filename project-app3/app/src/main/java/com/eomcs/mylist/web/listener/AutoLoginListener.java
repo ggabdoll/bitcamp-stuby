@@ -1,4 +1,4 @@
-package com.eomcs.mylist.web.listner;
+package com.eomcs.mylist.web.listener;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
