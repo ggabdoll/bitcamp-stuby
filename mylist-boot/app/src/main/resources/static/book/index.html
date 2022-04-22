@@ -1,123 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>📕📗읽었다고치자📘📙</title>
-    </head>
-    <br>
-        <style>
-            body {
-                padding: 20px;
-            }
-            .searchBox {
-                width: 25vw;
-                height: 3vh;
-                margin: 10px;
-                margin-left: 30vw;
-                border-radius: 5px;
-                background-color: #EEEEEE;
-                border:1px solid #D5D5D5;
-            }
-            table {
-                margin-top: 20px;
-                margin-left: 20px;
-                border-collapse: collapse;
-            }
-            .idx {
-                width: 20px;
-            }
-            th {
-                width: 150px;
-                text-align: center;
-                height: 30px;
-            }
-            td {
-                width: 150px;
-                text-align: center;
-                height: 30px;
-            }
-            .view {
-                width: 40px;
-            }
-            h1 {
-                color: #516beb;
-                margin-left: 40px;
-            }
-            .pluse-btn {
-                text-decoration: none;
-                margin-left: 50px;
-                color: black;
-                font-weight: bold;
-            }
-            .x-aName {
-                text-align: center;
-                text-decoration: none;
-                color: black;
-            }
-            tbody {
-                position: relative;
-            }
-            .tBodyTr :hover {
-                height: 50px;
-                border: 1px solid #444444;
-                border-radius: 5px;
-            }
-        </style>
-        <h1>📕📗읽었다고치자📘📙</h1>
-        <a href="form.html" class="pluse-btn">➕NEW BOOK</a></br>
-        <input class="searchBox" type="text" placeholder="Search" />
-        <table id="x-board-table">
-            <thead>
-                <tr>
-                    <th class="idx"></th>
-                    <th class="title">TITLE</th>
-                    <th class="author">AUTHOR</th>
-                    <th class="press">PRESS</th>
-                    <th class="page">PAGE</th>
-                    <th class="price">PRICE</th>
-                    <th class="date">ReadDate</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+<style>
+  .x-photo-box {
+    display: inline-block;
+    text-align: center; 
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+  } 
+</style>
 
-        <script>
-            var tbody = document.querySelector('#x-board-table tbody');
-            //var tr;
+<h1>독서록</h1>
+<a href="?content=/book/form.html">새 독서록</a>
+<table id="x-book-table" border="1">
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>책</th>
+    <th>저자</th>
+    <th>출판사</th>
+    <th>페이지</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
 
-            fetch('/book/list')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (list) {
-                    console.log(list);
-                    for (var i = 0; i < list.length; i++) {
-                        var tr = document.createElement('tr');
-                        tr.setAttribute('data-no', i);
-                        tr.classList.add('tBodyTr');
-                        tr.innerHTML = `<td class='idx'><span>${i + 1}</span></td>
-                        <td class='board-title'><a href='view.html?index=${i}' style="text-decoration : none; color : black">${
-                            list[i].title
-                        }</a></td>
-                        <td class='view'>${list[i].author}</td>
-                        <td>${list[i].press}</td>
-                        <td>${list[i].readPage}/${list[i].page}</td>
-                        <td>${list[i].price}</td>
-                        <td>${list[i].readDate}</td>`;
-                        tbody.appendChild(tr);
-                    }
-                });
+<script type="text/javascript">
+  var tbody = document.querySelector("#x-book-table tbody")
 
-            function goView() {
-                var trTag = document.querySelector(tbody > tr);
-                console.log('tr:::', tr);
-                // var idx = parseInt(trTag.getAttribute('data-no'));
-                //document.querySelector(`tr[data-no="${idx}"`);
-                console.log('i:::', idx);
-                location.href = `view.html?index=${idx}`;
-            }
-        </script>
-    </body>
-</html>
+  fetch("/book/list")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(result) {
+      if (result.status == "fail") {
+          window.alert("서버 요청 오류!");
+          console.log(result.data);
+          return;
+      }
+        
+      for (var book of result.data) {
+        if (book.photo == null) {
+          book.photo = "default.jpg";
+        }
+        var tr = document.createElement("tr");
+        tr.innerHTML = `<td>${book.no}</td>
+        <td><a href="?content=/book/view.html&no=${book.no}">
+          <div class="x-photo-box"><img src="/book/photo?filename=50x50_${book.photo}"></div>
+          ${book.title}
+        </a></td>
+        <td>${book.author}</td>
+        <td>${book.press}</td>
+        <td>${book.page}</td>`;
+        tbody.appendChild(tr);
+      }
+    });
+</script>
+
